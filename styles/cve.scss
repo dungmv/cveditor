@@ -1,0 +1,16 @@
+div[contenteditable=true]:focus,
+div[contenteditable=true]:hover,
+h1[contenteditable=true]:focus,
+h1[contenteditable=true]:hover,
+h2[contenteditable=true]:focus,
+h2[contenteditable=true]:hover,
+h3[contenteditable=true]:focus,
+h3[contenteditable=true]:hover,
+h4[contenteditable=true]:focus,
+h4[contenteditable=true]:hover,
+p[contenteditable=true]:focus,
+p[contenteditable=true]:hover,
+span[contenteditable=true]:focus,
+span[contenteditable=true]:hover {
+    outline: 1px dashed grey;
+}
