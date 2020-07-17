@@ -14,3 +14,91 @@ span[contenteditable=true]:focus,
 span[contenteditable=true]:hover {
     outline: 1px dashed grey;
 }
+
+.section-actions .section-action.draggable {
+    cursor: move;
+}
+
+.section-actions {
+    position: absolute;
+    z-index: 11;
+    bottom: calc(100% - 2px);
+    right: 0;
+    border: 2px solid #2f99b5;
+    background-color: #fff;
+    display: flex;
+    border-radius: 2px 2px 0 0;
+}
+
+.section-actions .section-action-wrapper {
+    padding: 6px 2px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center
+}
+
+.section-actions .section-action-wrapper.disabled {
+    opacity: .3
+}
+
+.section-actions .section-action-wrapper.disabled .section-action {
+    cursor: no-drop
+}
+
+.section-actions .section-action-wrapper.disabled .section-action:hover {
+    color: #fff;
+    background-color: unset
+}
+
+.section-actions .section-action {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2);
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    width: 28px;
+    border-radius: 2px;
+    background-color: #298aa5;
+    color: #fff;
+    padding: 2px 1px
+}
+
+.section-actions .section-action.add-sub-section-action,
+.section-actions .section-action.hide-section-button {
+    font-family: Open Sans, sans-serif;
+    font-size: 12px;
+    font-weight: 700
+}
+
+
+.section-actions .section-action.add-sub-section-action {
+    width: auto;
+    background-color: #f8ca04
+}
+
+.section-actions .section-action.hide-section-button {
+    width: 40px;
+    background-color: #f55 !important
+}
+
+.section-actions .section-action.draggable {
+    cursor: move
+}
+
+.section-actions .section-action.clickable {
+    cursor: pointer
+}
+
+.section-actions .section-action:hover {
+    background-color: #086680
+}
+
+.section-actions .section-action:hover.hide-section-button {
+    background-color: #be1212 !important
+}
+
+.section-actions .section-action:hover.add-sub-section-action {
+    background-color: #ffae00 !important
+}

@@ -2,10 +2,7 @@ import React, { useRef } from 'react'
 import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
 import { ItemTypes } from '../ItemTypes'
 import { XYCoord } from 'dnd-core'
-
-const style = {
-    cursor: 'move',
-}
+import ToolBox from '../ToolBox'
 
 export interface CardProps {
     id: any
@@ -82,9 +79,11 @@ export const Item: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
     })
 
     const opacity = isDragging ? 0 : 1
+    React.useState<boolean>();
     drag(drop(ref))
     return (
-        <li ref={ref} style={{ ...style, opacity }}>
+        <li ref={ref}>
+            {isDragging ? <ToolBox /> : null}
             <span contentEditable={true}>{text}</span>
         </li>
     )
