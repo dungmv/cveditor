@@ -5,7 +5,7 @@ import update from 'immutability-helper'
 export const Container = (items: string[]) => {
     {
         const [elements, setElements] = useState(items.map((el, i) => ({id: i, text: el})));
-        const moveCard = useCallback(
+        const moveItem = useCallback(
             (dragIndex, hoverIndex) => {
                 const dragCard = elements[dragIndex]
                 setElements(
@@ -26,7 +26,7 @@ export const Container = (items: string[]) => {
                     index={index}
                     id={el.id}
                     text={el.text}
-                    moveCard={moveCard}
+                    moveItem={moveItem}
                 />
             )
         }

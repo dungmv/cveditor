@@ -8,7 +8,7 @@ export interface CardProps {
     id: any
     text: string
     index: number
-    moveCard: (dragIndex: number, hoverIndex: number) => void
+    moveItem: (dragIndex: number, hoverIndex: number) => void
 }
 
 interface DragItem {
@@ -17,7 +17,7 @@ interface DragItem {
     type: string
 }
 
-export const Item: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
+export const Item: React.FC<CardProps> = ({ id, text, index, moveItem }) => {
     const refDrop = useRef<HTMLLIElement>(null);
     const refPreview = useRef<HTMLLIElement>(null);
     const [, drop] = useDrop({
@@ -62,7 +62,7 @@ export const Item: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
             }
 
             // Time to actually perform the action
-            moveCard(dragIndex, hoverIndex)
+            moveItem(dragIndex, hoverIndex)
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
@@ -88,7 +88,6 @@ export const Item: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
         setMouseHover(false);
     }
 
-    // const opacity = isDragging ? 0 : 1
     drop(refDrop);
     preview(refPreview);
     return (
