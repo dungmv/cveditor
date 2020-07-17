@@ -142,14 +142,14 @@ export default () => {
                             <h3 className="text-uppercase resume-section-heading mb-4">Skills</h3>
                             <div className="item">
                                 <h4 className="item-title">Technical</h4>
-                                {Container([
+                                <Container items={[
                                     'JavaScript/Angular/React/Vue',
                                     'Python/Ruby/PHP',
                                     'Node.js/ASP.NET',
                                     'PostgreSQL/MySQL',
                                     'Object-oriented design',
                                     'Design and implement database structures',
-                                ])}
+                                ]}/>
                             </div>
                             <div className="item">
                                 <h4 className="item-title">Professional</h4>

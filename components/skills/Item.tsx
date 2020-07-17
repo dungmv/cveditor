@@ -4,7 +4,7 @@ import { ItemTypes } from '../ItemTypes'
 import { XYCoord } from 'dnd-core'
 import ToolBox from '../ToolBox'
 
-export interface CardProps {
+export interface ItemProps {
     id: any
     text: string
     index: number
@@ -17,12 +17,12 @@ interface DragItem {
     type: string
 }
 
-export const Item: React.FC<CardProps> = ({ id, text, index, moveItem }) => {
-    const refDrop = useRef<HTMLLIElement>(null);
+export const Item: React.FC<ItemProps> = ({ id, text, index, moveItem }) => {
+    const ref = useRef<HTMLLIElement>(null);
     const [, drop] = useDrop({
         accept: ItemTypes.CARD,
         hover(item: DragItem, monitor: DropTargetMonitor) {
-            if (!refDrop.current) {
+            if (!ref.current) {
                 return
             }
             const dragIndex = item.index
@@ -34,7 +34,7 @@ export const Item: React.FC<CardProps> = ({ id, text, index, moveItem }) => {
             }
 
             // Determine rectangle on screen
-            const hoverBoundingRect = refDrop.current?.getBoundingClientRect()
+            const hoverBoundingRect = ref.current?.getBoundingClientRect()
 
             // Get vertical middle
             const hoverMiddleY =
@@ -87,9 +87,9 @@ export const Item: React.FC<CardProps> = ({ id, text, index, moveItem }) => {
         setMouseHover(false);
     }
 
-    drop(refDrop);
+    drop(ref);
     return (
-        <li ref={refDrop} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className={`sub-section ${isDragging ? 'sub-section-active' : ''}`}>
+        <li ref={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className={`sub-section ${isDragging ? 'sub-section-active' : ''}`}>
             {isMouseHover && !isDragging ? <ToolBox drag={drag}/> : null}
             <span contentEditable={true} suppressContentEditableWarning={true} ref={preview}>{text}</span>
         </li>
