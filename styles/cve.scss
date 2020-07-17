@@ -15,6 +15,10 @@ span[contenteditable=true]:hover {
     outline: 1px dashed grey;
 }
 
+.sub-section {
+    position: relative;
+}
+
 .section-actions .section-action.draggable {
     cursor: move;
 }

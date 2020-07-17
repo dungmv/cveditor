@@ -11,8 +11,8 @@ export default () => {
             <div className="resume-header">
                 <div className="row align-items-center">
                     <div className="resume-title col-12 col-md-6 col-lg-8 col-xl-9">
-                        <h2 className="resume-name mb-0 text-uppercase" contentEditable={true}>Simon Doe</h2>
-                        <div className="resume-tagline mb-3 mb-md-0" contentEditable={true}>Senior Software Engineer</div>
+                        <h2 className="resume-name mb-0 text-uppercase" contentEditable={false}>Simon Doe</h2>
+                        <div className="resume-tagline mb-3 mb-md-0" contentEditable={false}>Senior Software Engineer</div>
                     </div>
                     <div className="resume-contact col-12 col-md-6 col-lg-4 col-xl-3">
                         <ul className="list-unstyled mb-0">
@@ -29,7 +29,7 @@ export default () => {
                 <div className="media flex-column flex-md-row align-items-center">
                     <img className="resume-profile-image mb-3 mb-md-0 mr-md-5 ml-md-0 rounded mx-auto" src="/images/resume-profile.png" alt="image" />
                     <div className="media-body text-left">
-                        <p className="mb-0" contentEditable={true}>Summarise your career here. <a className="theme-link" href="https://themes.3rdwavemedia.com/resources/sketch-template/resume-sketch-sketch-resume-template-for-software-developers/" target="_blank">You can make a PDF version of your resume using our free Sketch template here</a>. Donec quam felis, ultricies nec, pellentesque eu. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.  Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. </p>
+                        <p className="mb-0" contentEditable={false}>Summarise your career here. <a className="theme-link" href="https://themes.3rdwavemedia.com/resources/sketch-template/resume-sketch-sketch-resume-template-for-software-developers/" target="_blank">You can make a PDF version of your resume using our free Sketch template here</a>. Donec quam felis, ultricies nec, pellentesque eu. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.  Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. </p>
                     </div>
                 </div>
             </div>
@@ -38,14 +38,14 @@ export default () => {
                 <div className="row">
                     <div className="resume-main col-12 col-lg-8 col-xl-9 pr-0 pr-lg-5">
                         <section className="work-section py-3">
-                            <h3 className="text-uppercase resume-section-heading mb-4" contentEditable={true}>Work Experiences</h3>
+                            <h3 className="text-uppercase resume-section-heading mb-4" contentEditable={false}>Work Experiences</h3>
                             <div className="item mb-3">
                                 <div className="item-heading row align-items-center mb-2">
-                                    <h4 className="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0" contentEditable={true}>Senior Software Engineer</h4>
-                                    <div className="item-meta col-12 col-md-6 col-lg-4 text-muted text-left text-md-right" contentEditable={true}>Google | 2019 - Present</div>
+                                    <h4 className="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0" contentEditable={false}>Senior Software Engineer</h4>
+                                    <div className="item-meta col-12 col-md-6 col-lg-4 text-muted text-left text-md-right" contentEditable={false}>Google | 2019 - Present</div>
                                     
                                 </div>
-                                <div className="item-content" contentEditable={true}>
+                                <div className="item-content" contentEditable={false}>
                                     <p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Donec pede justo, fringilla vel. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.</p>
                                     <ul className="resume-list">
                                         <li>Lorem ipsum dolor sit amet, consectetuer.</li>

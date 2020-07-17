@@ -31,7 +31,9 @@ export const Container = (items: string[]) => {
             )
         }
         return (
-            <ul className="list-unstyled resume-skills-list">{elements.map(renderElement)}</ul>
+            <ul className="list-unstyled resume-skills-list">
+                {elements.map(renderElement)}
+            </ul>
         )
     }
 }

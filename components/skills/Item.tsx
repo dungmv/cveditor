@@ -18,11 +18,12 @@ interface DragItem {
 }
 
 export const Item: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
-    const ref = useRef<HTMLLIElement>(null)
+    const refDrop = useRef<HTMLLIElement>(null);
+    const refPreview = useRef<HTMLLIElement>(null);
     const [, drop] = useDrop({
         accept: ItemTypes.CARD,
         hover(item: DragItem, monitor: DropTargetMonitor) {
-            if (!ref.current) {
+            if (!refDrop.current) {
                 return
             }
             const dragIndex = item.index
@@ -34,7 +35,7 @@ export const Item: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
             }
 
             // Determine rectangle on screen
-            const hoverBoundingRect = ref.current?.getBoundingClientRect()
+            const hoverBoundingRect = refDrop.current?.getBoundingClientRect()
 
             // Get vertical middle
             const hoverMiddleY =
@@ -71,20 +72,29 @@ export const Item: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
         },
     })
 
-    const [{ isDragging }, drag] = useDrag({
+    const [{ isDragging }, drag, preview] = useDrag({
         item: { type: ItemTypes.CARD, id, index },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
         }),
     })
 
-    const opacity = isDragging ? 0 : 1
-    React.useState<boolean>();
-    drag(drop(ref))
+    const [isMouseHover, setMouseHover] = React.useState<boolean>(false);
+    const onMouseEnter = () => {
+        setMouseHover(true);
+    }
+
+    const onMouseLeave = () => {
+        setMouseHover(false);
+    }
+
+    // const opacity = isDragging ? 0 : 1
+    drop(refDrop);
+    preview(refPreview);
     return (
-        <li ref={ref}>
-            {isDragging ? <ToolBox /> : null}
-            <span contentEditable={true}>{text}</span>
+        <li ref={refDrop} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="sub-section">
+            {isMouseHover && !isDragging ? <ToolBox drag={drag}/> : null}
+            <span suppressContentEditableWarning={true} ref={refPreview}>{text}</span>
         </li>
     )
 }
