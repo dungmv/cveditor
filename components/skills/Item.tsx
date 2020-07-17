@@ -19,7 +19,6 @@ interface DragItem {
 
 export const Item: React.FC<CardProps> = ({ id, text, index, moveItem }) => {
     const refDrop = useRef<HTMLLIElement>(null);
-    const refPreview = useRef<HTMLLIElement>(null);
     const [, drop] = useDrop({
         accept: ItemTypes.CARD,
         hover(item: DragItem, monitor: DropTargetMonitor) {
@@ -89,11 +88,10 @@ export const Item: React.FC<CardProps> = ({ id, text, index, moveItem }) => {
     }
 
     drop(refDrop);
-    preview(refPreview);
     return (
-        <li ref={refDrop} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="sub-section">
+        <li ref={refDrop} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className={`sub-section ${isDragging ? 'sub-section-active' : ''}`}>
             {isMouseHover && !isDragging ? <ToolBox drag={drag}/> : null}
-            <span suppressContentEditableWarning={true} ref={refPreview}>{text}</span>
+            <span contentEditable={true} suppressContentEditableWarning={true} ref={preview}>{text}</span>
         </li>
     )
 }
