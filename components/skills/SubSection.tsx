@@ -1,14 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useState, useCallback, useRef } from 'react'
 import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
-import { ItemTypes } from '../ItemTypes'
 import { XYCoord } from 'dnd-core'
+import { ItemTypes } from '../ItemTypes'
+import { Item } from './Item'
+import update from 'immutability-helper'
 import ToolBox from '../ToolBox'
 
-export interface ItemProps {
-    id: any
-    text: string
-    index: number
-    moveItem: (dragIndex: number, hoverIndex: number) => void
+export interface IProps {
+    id: number,
+    index: number,
+    title: string,
+    items: string[],
+    moveSection: (dragIndex: number, hoverIndex: number) => void
 }
 
 interface DragItem {
@@ -17,10 +20,10 @@ interface DragItem {
     type: string
 }
 
-export const Item: React.FC<ItemProps> = ({ id, text, index, moveItem }) => {
-    const ref = useRef<HTMLLIElement>(null);
+export const SubSection: React.FC<IProps> = ({id, title, index, items, moveSection}) => {
+    const ref = useRef<HTMLDivElement>(null);
     const [, drop] = useDrop({
-        accept: ItemTypes.SUBSECTION,
+        accept: ItemTypes.SECTION,
         hover(item: DragItem, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return
@@ -61,7 +64,7 @@ export const Item: React.FC<ItemProps> = ({ id, text, index, moveItem }) => {
             }
 
             // Time to actually perform the action
-            moveItem(dragIndex, hoverIndex)
+            moveSection(dragIndex, hoverIndex)
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
@@ -72,7 +75,7 @@ export const Item: React.FC<ItemProps> = ({ id, text, index, moveItem }) => {
     })
 
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { type: ItemTypes.SUBSECTION, id, index },
+        item: { type: ItemTypes.SECTION, id, index },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -88,10 +91,44 @@ export const Item: React.FC<ItemProps> = ({ id, text, index, moveItem }) => {
     }
 
     drop(ref);
+
+
+
+    const [elements, setElements] = useState(items.map((el, i) => ({id: i, text: el})));
+    const moveItem = useCallback(
+        (dragIndex, hoverIndex) => {
+            const dragCard = elements[dragIndex]
+            setElements(
+                update(elements, {
+                    $splice: [
+                        [dragIndex, 1],
+                        [hoverIndex, 0, dragCard],
+                    ],
+                }),
+            )
+        },
+        [elements],
+    )
+    const renderElement = (el, index) => {
+        return (
+            <Item
+                key={el.id}
+                index={index}
+                id={el.id}
+                text={el.text}
+                moveItem={moveItem}
+            />
+        )
+    }
     return (
-        <li ref={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className={`sub-section ${isDragging ? 'sub-section-active' : ''}`}>
+        <div ref={ref} className="sub-section item" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             {isMouseHover && !isDragging ? <ToolBox drag={drag}/> : null}
-            <span contentEditable={true} suppressContentEditableWarning={true} ref={preview}>{text}</span>
-        </li>
+            <div ref={preview}>
+                <h4 className="item-title">{title}</h4>
+                <ul className="list-unstyled resume-skills-list">
+                    {elements.map(renderElement)}
+                </ul>
+            </div>
+        </div>
     )
 }

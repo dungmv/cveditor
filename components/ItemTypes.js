@@ -1,4 +1,4 @@
 export const ItemTypes = {
-  CARD: 'card',
-  SKILL: 'skill',
+  SECTION: 'card',
+  SUBSECTION: 'skill',
 }

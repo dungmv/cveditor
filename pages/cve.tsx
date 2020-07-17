@@ -1,7 +1,7 @@
 import React from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Container } from '../components/skills/Container'
+import { Section } from '../components/skills/Section'
 
 export default () => {
     return (
@@ -138,29 +138,25 @@ export default () => {
                         </section>	
                     </div>
                     <aside className="resume-aside col-12 col-lg-4 col-xl-3 px-lg-4 pb-lg-4">
-                        <section className="skills-section py-3">
-                            <h3 className="text-uppercase resume-section-heading mb-4">Skills</h3>
-                            <div className="item">
-                                <h4 className="item-title">Technical</h4>
-                                <Container items={[
+                            <Section title='Skills' items={[{
+                                title: 'Technical',
+                                items: [
                                     'JavaScript/Angular/React/Vue',
                                     'Python/Ruby/PHP',
                                     'Node.js/ASP.NET',
                                     'PostgreSQL/MySQL',
                                     'Object-oriented design',
                                     'Design and implement database structures',
-                                ]}/>
-                            </div>
-                            <div className="item">
-                                <h4 className="item-title">Professional</h4>
-                                <ul className="list-unstyled resume-skills-list">
-                                    <li className="mb-2">Effective communication</li>
-                                    <li className="mb-2">Team player</li>
-                                    <li className="mb-2">Strong problem solver</li>
-                                    <li>Good time management</li>
-                                </ul>
-                            </div>
-                        </section>
+                                ]
+                            },{
+                                title: 'Professional',
+                                items: [
+                                    'Effective communication',
+                                    'Team player',
+                                    'Strong problem solver',
+                                    'Good time management'
+                                ]
+                            }]}/>
                             <section className="education-section py-3">
                                 <h3 className="text-uppercase resume-section-heading mb-4">Education</h3>
                                 <ul className="list-unstyled resume-education-list">
