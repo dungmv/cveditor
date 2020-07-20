@@ -138,72 +138,72 @@ export default () => {
                         </section>	
                     </div>
                     <aside className="resume-aside col-12 col-lg-4 col-xl-3 px-lg-4 pb-lg-4">
-                            <Section title='Skills' items={[{
-                                title: 'Technical',
-                                items: [
-                                    'JavaScript/Angular/React/Vue',
-                                    'Python/Ruby/PHP',
-                                    'Node.js/ASP.NET',
-                                    'PostgreSQL/MySQL',
-                                    'Object-oriented design',
-                                    'Design and implement database structures',
-                                ]
-                            },{
-                                title: 'Professional',
-                                items: [
-                                    'Effective communication',
-                                    'Team player',
-                                    'Strong problem solver',
-                                    'Good time management'
-                                ]
-                            }]}/>
-                            <section className="education-section py-3">
-                                <h3 className="text-uppercase resume-section-heading mb-4">Education</h3>
-                                <ul className="list-unstyled resume-education-list">
-                                    <li className="mb-3">
-                                        <div className="resume-degree font-weight-bold">MSc in Computer Science</div>
-                                        <div className="resume-degree-org text-muted">University College London</div>
-                                        <div className="resume-degree-time text-muted">2010 - 2011</div>
-                                    </li>
-                                    <li>
-                                        <div className="resume-degree font-weight-bold">BSc Maths and Physics</div>
-                                        <div className="resume-degree-org text-muted">Imperial College London</div>
-                                        <div className="resume-degree-time text-muted">2007 - 2010</div>
-                                    </li>
-                                </ul>
-                            </section>
-                            <section className="education-section py-3">
-                                <h3 className="text-uppercase resume-section-heading mb-4">Awards</h3>
-                                <ul className="list-unstyled resume-awards-list">
-                                    <li className="mb-3">
-                                        <div className="font-weight-bold">Award Lorem Ipsum</div>
-                                        <div className="text-muted">Microsoft lorem ipsum (2019)</div>
-                                    </li>
-                                    <li>
-                                        <div className="font-weight-bold">Award Donec Sodales</div>
-                                        <div className="text-muted">Oracle Aenean (2017)</div>
-                                    </li>
-                                </ul>
-                            </section>
-                            <section className="skills-section py-3">
-                                <h3 className="text-uppercase resume-section-heading mb-4">Languages</h3>
-                                <ul className="list-unstyled resume-lang-list">
-                                    <li className="mb-2">English <span className="text-muted">(Native)</span></li>
-                                    <li>Spanish <span className="text-muted">(Professional)</span></li>
-                                </ul>
-                            </section>
-                            <section className="skills-section py-3">
-                                <h3 className="text-uppercase resume-section-heading mb-4">Interests</h3>
-                                <ul className="list-unstyled resume-interests-list mb-0">
-                                    <li className="mb-2">Climbing</li>
-                                    <li className="mb-2">Snowboarding</li>
-                                    <li className="mb-2">Photography</li>
-                                    <li>Travelling</li>
-                                </ul>
-                            </section>
-                        </aside>
-                    </div>
+                        <Section title='Skills' items={[{
+                            title: 'Technical',
+                            items: [
+                                'JavaScript/Angular/React/Vue',
+                                'Python/Ruby/PHP',
+                                'Node.js/ASP.NET',
+                                'PostgreSQL/MySQL',
+                                'Object-oriented design',
+                                'Design and implement database structures',
+                            ]
+                        },{
+                            title: 'Professional',
+                            items: [
+                                'Effective communication',
+                                'Team player',
+                                'Strong problem solver',
+                                'Good time management'
+                            ]
+                        }]}/>
+                        <section className="education-section py-3">
+                            <h3 className="text-uppercase resume-section-heading mb-4">Education</h3>
+                            <ul className="list-unstyled resume-education-list">
+                                <li className="mb-3">
+                                    <div className="resume-degree font-weight-bold">MSc in Computer Science</div>
+                                    <div className="resume-degree-org text-muted">University College London</div>
+                                    <div className="resume-degree-time text-muted">2010 - 2011</div>
+                                </li>
+                                <li>
+                                    <div className="resume-degree font-weight-bold">BSc Maths and Physics</div>
+                                    <div className="resume-degree-org text-muted">Imperial College London</div>
+                                    <div className="resume-degree-time text-muted">2007 - 2010</div>
+                                </li>
+                            </ul>
+                        </section>
+                        <section className="education-section py-3">
+                            <h3 className="text-uppercase resume-section-heading mb-4">Awards</h3>
+                            <ul className="list-unstyled resume-awards-list">
+                                <li className="mb-3">
+                                    <div className="font-weight-bold">Award Lorem Ipsum</div>
+                                    <div className="text-muted">Microsoft lorem ipsum (2019)</div>
+                                </li>
+                                <li>
+                                    <div className="font-weight-bold">Award Donec Sodales</div>
+                                    <div className="text-muted">Oracle Aenean (2017)</div>
+                                </li>
+                            </ul>
+                        </section>
+                        <section className="skills-section py-3">
+                            <h3 className="text-uppercase resume-section-heading mb-4">Languages</h3>
+                            <ul className="list-unstyled resume-lang-list">
+                                <li className="mb-2">English <span className="text-muted">(Native)</span></li>
+                                <li>Spanish <span className="text-muted">(Professional)</span></li>
+                            </ul>
+                        </section>
+                        <section className="skills-section py-3">
+                            <h3 className="text-uppercase resume-section-heading mb-4">Interests</h3>
+                            <ul className="list-unstyled resume-interests-list mb-0">
+                                <li className="mb-2">Climbing</li>
+                                <li className="mb-2">Snowboarding</li>
+                                <li className="mb-2">Photography</li>
+                                <li>Travelling</li>
+                            </ul>
+                        </section>
+                    </aside>
                 </div>
+            </div>
             <hr />
             <div className="resume-footer text-center">
                 <ul className="resume-social-list list-inline mx-auto mb-0 d-inline-block text-muted">

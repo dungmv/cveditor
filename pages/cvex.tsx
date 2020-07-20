@@ -7,7 +7,7 @@ export default ({data}) => {
     useEffect(() => {
         fetch('/api/templates')
         .then(res => res.text())
-        .then(data => setTemplate(data))
+        .then(text => setTemplate(text))
     });
     return (
         <div className="container px-3 px-lg-5">
