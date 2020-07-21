@@ -19,7 +19,7 @@ export default (req, res) => {
     const s22 = readSection('s.2.2', 2);
     const s23 = readSection('s.2.3', 2);
     const s24 = readSection('s.2.4', 2);
-    const s25 = readSection('s.2.4', 0);
+    const s25 = readSection('s.2.5', 0);
     res.statusCode = 200;
     res.json({
         jsx,
