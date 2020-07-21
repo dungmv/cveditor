@@ -48,7 +48,7 @@ export const Container: React.FC<IProps> = (props) => {
                 jsx={el.jsx}
                 index={index}
                 subs={el.subs}
-                // moveSection={moveItem}
+                moveSection={moveItem}
             />
         )
     }

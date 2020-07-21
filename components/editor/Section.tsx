@@ -7,11 +7,12 @@ import ToolBox from '../ToolBox'
 export interface IProps {
     index: number,
     subs?: string[],
-    jsx: string
+    jsx: string,
+    moveSection: (dragIndex: number, hoverIndex: number) => void
 }
 
-export const Section: React.FC<IProps> = ({index, jsx, subs}) => {
-    const [elements, setElements] = useState(subs.map((el, i) => ({id: i, item: el})));
+export const Section: React.FC<IProps> = ({index, jsx, subs, moveSection}) => {
+    const [elements, setElements] = useState(subs.map((el, i) => ({id: i, jsx: el})));
     const moveItem = useCallback(
         (dragIndex, hoverIndex) => {
             const dragCard = elements[dragIndex]
@@ -30,10 +31,11 @@ export const Section: React.FC<IProps> = ({index, jsx, subs}) => {
     const renderSubSection = (el, index: number) => {
         return (
             <SubSection
-                key={index}
-                jsx={el.item}
+                id={el.id}
+                key={el.id}
+                jsx={el.jsx}
                 index={index}
-                // moveSection={moveItem}
+                moveItem={moveItem}
             />
         )
     }
