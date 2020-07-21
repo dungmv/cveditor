@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useRef } from 'react'
 import update from 'immutability-helper'
 import JsxParser from 'react-jsx-parser'
 import { SubSection } from './SubSection';
+import ToolBox from '../ToolBox'
 
 export interface IProps {
     index: number,
@@ -40,11 +41,24 @@ export const Section: React.FC<IProps> = ({index, jsx, subs}) => {
         return elements.map(renderSubSection);
     }
 
+    const drag = useRef<HTMLDivElement>(null);
+    const [isMouseHover, setMouseHover] = React.useState<boolean>(false);
+    const onMouseEnter = () => {
+        setMouseHover(true);
+    }
+
+    const onMouseLeave = () => {
+        setMouseHover(false);
+    }
+
     return (
-        <JsxParser
-            components={{ SubSection }}
-            bindings={{subSections}}
-            jsx={jsx}
-        />
+        <div className="section editable section-dnd" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            {isMouseHover ? <ToolBox drag={drag}/> : null}
+            <JsxParser
+                components={{ SubSection }}
+                bindings={{subSections}}
+                jsx={jsx}
+            />
+        </div>
     )
 }
