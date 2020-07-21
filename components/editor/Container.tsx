@@ -44,6 +44,7 @@ export const Container: React.FC<IProps> = (props) => {
     const section = (el, index: number) => {
         return (
             <Section
+                id={el.id}
                 key={index}
                 jsx={el.jsx}
                 index={index}

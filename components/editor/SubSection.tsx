@@ -47,8 +47,7 @@ export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
             const hoverBoundingRect = ref.current?.getBoundingClientRect()
 
             // Get vertical middle
-            const hoverMiddleY =
-                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
 
             // Determine mouse position
             const clientOffset = monitor.getClientOffset()
