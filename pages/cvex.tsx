@@ -18,7 +18,6 @@ export default ({ data }) => {
                     components={{}}
                     jsx={template}
                 />
-                {/* {template? <div dangerouslySetInnerHTML={{__html: template}}></div>:null} */}
             </DndProvider>
         </div>
     )

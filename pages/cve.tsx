@@ -1,7 +1,7 @@
 import React from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Section } from '../components/skills/Section'
+import { Section } from '../components/editor/Section'
 
 export default () => {
     return (
@@ -29,7 +29,7 @@ export default () => {
                 <div className="media flex-column flex-md-row align-items-center">
                     <img className="resume-profile-image mb-3 mb-md-0 mr-md-5 ml-md-0 rounded mx-auto" src="/images/resume-profile.png" alt="image" />
                     <div className="media-body text-left">
-                        <p className="mb-0" contentEditable={false}>Summarise your career here. <a className="theme-link" href="https://themes.3rdwavemedia.com/resources/sketch-template/resume-sketch-sketch-resume-template-for-software-developers/" target="_blank">You can make a PDF version of your resume using our free Sketch template here</a>. Donec quam felis, ultricies nec, pellentesque eu. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.  Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. </p>
+                        <p className="mb-0" contentEditable={false}>Summarise your career here. You can make a PDF version of your resume using our free Sketch template here. Donec quam felis, ultricies nec, pellentesque eu. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.  Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. </p>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,6 @@ export default () => {
                                 <div className="item-heading row align-items-center mb-2">
                                     <h4 className="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0" contentEditable={false}>Senior Software Engineer</h4>
                                     <div className="item-meta col-12 col-md-6 col-lg-4 text-muted text-left text-md-right" contentEditable={false}>Google | 2019 - Present</div>
-                                    
                                 </div>
                                 <div className="item-content" contentEditable={false}>
                                     <p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Donec pede justo, fringilla vel. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.</p>
@@ -58,7 +57,6 @@ export default () => {
                                 <div className="item-heading row align-items-center mb-2">
                                     <h4 className="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">Lead Software Developer</h4>
                                     <div className="item-meta col-12 col-md-6 col-lg-4 text-muted text-left text-md-right">Apple | 2016 - 2019</div>
-                                    
                                 </div>
                                 <div className="item-content">
                                     <p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Donec pede justo, fringilla vel.</p>
@@ -81,7 +79,6 @@ export default () => {
                                 <div className="item-heading row align-items-center mb-2">
                                     <h4 className="item-title col-12 col-md-6 col-lg-8 mb-2 mb-md-0">Senior Developer</h4>
                                     <div className="item-meta col-12 col-md-6 col-lg-4 text-muted text-left text-md-right">Uber | 2013 - 2014</div>
-                                    
                                 </div>
                                 <div className="item-content">
                                     <p>Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus. </p>
@@ -135,29 +132,39 @@ export default () => {
                                     <p>You can use this section for your side projects. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
                                 </div>
                             </div>
-                        </section>	
+                        </section>
                     </div>
                     <aside className="resume-aside col-12 col-lg-4 col-xl-3 px-lg-4 pb-lg-4">
-                        <Section title='Skills' items={[{
-                            title: 'Technical',
-                            items: [
-                                'JavaScript/Angular/React/Vue',
-                                'Python/Ruby/PHP',
-                                'Node.js/ASP.NET',
-                                'PostgreSQL/MySQL',
-                                'Object-oriented design',
-                                'Design and implement database structures',
-                            ]
-                        },{
-                            title: 'Professional',
-                            items: [
-                                'Effective communication',
-                                'Team player',
-                                'Strong problem solver',
-                                'Good time management'
-                            ]
-                        }]}/>
-                        <section className="education-section py-3">
+                        <Section subs={[
+                            `<div className="item sub-section">
+                            <h4 className="item-title">Technical</h4>
+                            <ul className="list-unstyled resume-skills-list">
+                                <li className="mb-2">JavaScript/Angular/React/Vue</li>
+                                <li className="mb-2">Python/Ruby/PHP</li>
+                                <li className="mb-2">Node.js/ASP.NET</li>
+                                <li className="mb-2">PostgreSQL/MySQL</li>
+                                <li className="mb-2">Object-oriented design</li>
+                                <li className="mb-2">Design and implement database structures</li>
+                                <li className="mb-2">Lead and deliver complex software systems</li>
+                            </ul>
+                            </div>`,
+                            `<div className="item sub-section">
+                                <h4 className="item-title">Professional</h4>
+                                <ul className="list-unstyled resume-skills-list">
+                                    <li className="mb-2">Effective communication</li>
+                                    <li className="mb-2">Team player</li>
+                                    <li className="mb-2">Strong problem solver</li>
+                                    <li className="mb-2">Good time management</li>
+                                </ul>
+                            </div>`]}
+                        jsx={`
+                        <section className="section skills-section py-3">
+                            <h3 className="text-uppercase resume-section-heading mb-4">Skills</h3>
+                            {subs.map(renderSubSection)}
+                        </section>
+                        `}
+                        />
+                        <section className="section education-section py-3">
                             <h3 className="text-uppercase resume-section-heading mb-4">Education</h3>
                             <ul className="list-unstyled resume-education-list">
                                 <li className="mb-3">
