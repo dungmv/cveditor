@@ -4,7 +4,7 @@ import { DndProvider } from 'react-dnd'
 import { Container } from '../components/editor/Container';
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
-const fetcher = (input: RequestInfo, init?: RequestInit) => fetch(input, init).then(res => res.json());
+const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 export default ({ }) => {
     const { data, error } = useSWR('/api/templates', fetcher);
