@@ -29,6 +29,7 @@ export const Section: React.FC<IProps> = ({index, jsx, subs}) => {
     const renderSubSection = (el, index: number) => {
         return (
             <SubSection
+                key={index}
                 jsx={el.item}
                 index={index}
                 // moveSection={moveItem}
