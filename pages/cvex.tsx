@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { DndProvider } from 'react-dnd'
-import JsxParser from 'react-jsx-parser'
+import { Container } from '../components/editor/Container';
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
 export default ({ data }) => {
-    const [template, setTemplate] = useState<string>(null);
+    const [template, setTemplate] = useState(null);
     useEffect(() => {
         fetch('/api/templates')
-            .then(res => res.text())
-            .then(text => setTemplate(text))
+            .then(res => res.json())
+            .then(json => setTemplate(json))
     });
     return (
         <div className="container px-3 px-lg-5">
             <DndProvider backend={HTML5Backend}>
-                <JsxParser
-                    bindings={{}}
-                    components={{}}
-                    jsx={template}
-                />
+                {template? 
+                <Container
+                    jsx={template.jsx}
+                    header={template.header}
+                    footer={template.footer}
+                    sections={template.sections}
+                /> : null}
             </DndProvider>
         </div>
     )

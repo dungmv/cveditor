@@ -1,0 +1,20 @@
+<article className="resume-wrapper mx-auto theme-bg-light p-5 mb-5 my-5 shadow-lg">
+    {renderHeader()}
+    <hr />
+    <div className="resume-body">
+        <div className="row">
+            <div className="resume-main col-12 col-lg-8 col-xl-9 pr-0 pr-lg-5">
+                <section className="work-section py-3">
+                    {renderColumn(0)}
+                </section>
+            </div>
+            <aside className="resume-aside col-12 col-lg-4 col-xl-3 px-lg-4 pb-lg-4">
+                <section className="skills-section py-3">
+                    {renderColumn(1)}
+                </section>
+            </aside>
+        </div>
+    </div>
+    <hr />
+    {renderFooter()}
+</article>
