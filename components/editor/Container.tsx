@@ -16,8 +16,8 @@ export interface IProps {
     jsx: string
 }
 
-export const Container: React.FC<IProps> = ({jsx, sections, header, footer}) => {
-    const [elements, setElements] = useState(sections.map((el, i) => ({id: i, item: el})));
+export const Container: React.FC<IProps> = (props) => {
+    const [elements, setElements] = useState(props.sections.map((el, i) => ({id: i, item: el})));
     const moveItem = useCallback(
         (dragIndex, hoverIndex) => {
             const dragCard = elements[dragIndex]
@@ -33,15 +33,15 @@ export const Container: React.FC<IProps> = ({jsx, sections, header, footer}) => 
         [elements],
     )
 
-    const renderHeader = () => {
-        return (<JsxParser jsx={header}/>)
+    const header = () => {
+        return (<JsxParser jsx={props.header}/>)
     }
 
-    const renderFooter = () => {
-        return (<JsxParser jsx={footer}/>)
+    const footer = () => {
+        return (<JsxParser jsx={props.footer}/>)
     }
 
-    const renderSection = (el, index: number) => {
+    const section = (el, index: number) => {
         return (
             <Section
                 key={index}
@@ -52,14 +52,14 @@ export const Container: React.FC<IProps> = ({jsx, sections, header, footer}) => 
             />
         )
     }
-    const renderColumn = (col: number) => {
-        return sections[col].map(renderSection);
+    const column = (col: number) => {
+        return props.sections[col].map(section);
     }
     return (
         <JsxParser
             components={{ SubSection, Section }}
-            bindings={{subs: elements, renderColumn, renderHeader, renderFooter, renderSection}}
-            jsx={jsx}
+            bindings={{column, header, footer, section}}
+            jsx={props.jsx}
         />
     )
 }

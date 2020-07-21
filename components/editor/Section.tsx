@@ -25,6 +25,7 @@ export const Section: React.FC<IProps> = ({index, jsx, subs}) => {
         },
         [elements],
     )
+
     const renderSubSection = (el, index: number) => {
         return (
             <SubSection
@@ -34,10 +35,14 @@ export const Section: React.FC<IProps> = ({index, jsx, subs}) => {
             />
         )
     }
+    const subSections = () => {
+        return elements.map(renderSubSection);
+    }
+
     return (
         <JsxParser
             components={{ SubSection }}
-            bindings={{subs: elements, renderSubSection}}
+            bindings={{subSections}}
             jsx={jsx}
         />
     )
