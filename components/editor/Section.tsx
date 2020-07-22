@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useRef } from 'react'
-import update from 'immutability-helper'
 import JsxParser from 'react-jsx-parser'
 import { SubSection } from './SubSection';
 import ToolBox from '../ToolBox'
@@ -10,30 +9,27 @@ import { ItemTypes } from '../ItemTypes';
 interface DragItem {
     index: number
     id: string
+    col: number
     type: string
 }
 
 export interface IProps {
     id: number,
+    col: number,
     index: number,
     subs?: string[],
     jsx: string,
-    moveSection: (dragIndex: number, hoverIndex: number) => void
+    moveSection: (dragCol: number, hoverCol: number, dragIndex: number, hoverIndex: number) => void
 }
 
-export const Section: React.FC<IProps> = ({index, id, jsx, subs, moveSection}) => {
+export const Section: React.FC<IProps> = ({col, index, id, jsx, subs, moveSection}) => {
     const [elements, setElements] = useState(subs.map((el, i) => ({id: i, jsx: el})));
     const moveItem = useCallback(
         (dragIndex, hoverIndex) => {
-            const dragCard = elements[dragIndex]
-            setElements(
-                update(elements, {
-                    $splice: [
-                        [dragIndex, 1],
-                        [hoverIndex, 0, dragCard],
-                    ],
-                }),
-            )
+            const dragCard = elements[dragIndex];
+            elements[dragIndex] = elements[hoverIndex];
+            elements[hoverIndex] = dragCard;
+            setElements([...elements]);
         },
         [elements],
     )
@@ -62,16 +58,17 @@ export const Section: React.FC<IProps> = ({index, id, jsx, subs, moveSection}) =
         setMouseHover(false);
     }
 
-
     const ref = useRef<HTMLDivElement>(null);
     const [, drop] = useDrop({
-        accept: ItemTypes.SUBSECTION,
+        accept: ItemTypes.SECTION,
         hover(item: DragItem, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return
             }
             const dragIndex = item.index
             const hoverIndex = index
+            const dragCol = item.col
+            const hoverCol = col
 
             // Don't replace items with themselves
             if (dragIndex === hoverIndex) {
@@ -105,7 +102,7 @@ export const Section: React.FC<IProps> = ({index, id, jsx, subs, moveSection}) =
             }
 
             // Time to actually perform the action
-            moveItem(dragIndex, hoverIndex)
+            moveSection(dragCol, hoverCol, dragIndex, hoverIndex)
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
@@ -116,16 +113,16 @@ export const Section: React.FC<IProps> = ({index, id, jsx, subs, moveSection}) =
     })
 
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { type: ItemTypes.SUBSECTION, id, index },
+        item: { type: ItemTypes.SECTION, id, index, col },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
         }),
     })
-    drop(ref);
 
+    drop(ref);
     return (
-        <div className="section editable section-dnd" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {isMouseHover ? <ToolBox drag={drag}/> : null}
+        <div ref={ref} className="section editable section-dnd" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            {isMouseHover && !isDragging ? <ToolBox drag={drag}/> : null}
             <div ref={preview}>
                 <JsxParser bindings={{subSections}} jsx={jsx}/>
             </div>

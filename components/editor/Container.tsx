@@ -1,12 +1,22 @@
 import React, { useState, useCallback } from 'react'
-import update from 'immutability-helper'
 import JsxParser from 'react-jsx-parser'
-import { SubSection } from './SubSection';
 import { Section } from './Section';
 
 interface SectionProps {
+    id?: number,
     jsx: string,
     subs?: string[]
+}
+
+const rebuildSection = (sections: SectionProps[][]) => {
+    let counter = 1;
+    sections.forEach((col) => {
+        col.forEach((sec) => {
+            sec.id = counter;
+            counter++;
+        }) 
+    });
+    return sections;
 }
 
 export interface IProps {
@@ -17,18 +27,13 @@ export interface IProps {
 }
 
 export const Container: React.FC<IProps> = (props) => {
-    const [elements, setElements] = useState(props.sections.map((el, i) => ({id: i, item: el})));
-    const moveItem = useCallback(
-        (dragIndex, hoverIndex) => {
-            const dragCard = elements[dragIndex]
-            setElements(
-                update(elements, {
-                    $splice: [
-                        [dragIndex, 1],
-                        [hoverIndex, 0, dragCard],
-                    ],
-                }),
-            )
+    const [elements, setElements] = useState<SectionProps[][]>(rebuildSection(props.sections));
+    const moveSection = useCallback(
+        (dragCol, hoverCol, dragIndex, hoverIndex) => {
+            const dragCard = elements[dragCol][dragIndex];
+            elements[dragCol][dragIndex] = elements[hoverCol][hoverIndex];
+            elements[hoverCol][hoverIndex] = dragCard;
+            setElements([...elements]);
         },
         [elements],
     )
@@ -41,25 +46,25 @@ export const Container: React.FC<IProps> = (props) => {
         return (<JsxParser jsx={props.footer}/>)
     }
 
-    const section = (el, index: number) => {
+    const section = (col: number, el: SectionProps, index: number) => {
         return (
             <Section
                 id={el.id}
-                key={index}
+                col={col}
+                key={el.id}
                 jsx={el.jsx}
                 index={index}
                 subs={el.subs}
-                moveSection={moveItem}
+                moveSection={moveSection}
             />
         )
     }
     const column = (col: number) => {
-        return props.sections[col].map(section);
+        return elements[col].map((el, i) => section(col, el, i));
     }
     return (
         <JsxParser
-            components={{ SubSection, Section }}
-            bindings={{column, header, footer, section}}
+            bindings={{column, header, footer}}
             jsx={props.jsx}
         />
     )
