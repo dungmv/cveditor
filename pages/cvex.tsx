@@ -17,12 +17,7 @@ export default ({ }) => {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <DndProvider backend={HTML5Backend}>
-                {data ? <Container
-                    jsx={data.jsx}
-                    header={data.header}
-                    footer={data.footer}
-                    sections={data.sections}
-                /> : <h1>loading</h1>}
+                {data ? <Container template={data} /> : <h1>loading</h1>}
             </DndProvider>
         </div>
     )

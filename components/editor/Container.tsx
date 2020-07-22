@@ -2,32 +2,43 @@ import React, { useState, useCallback } from 'react'
 import JsxParser from 'react-jsx-parser'
 import { Section } from './Section';
 
-interface SectionProps {
-    id?: number,
-    jsx: string,
-    subs?: string[]
-}
-
-const rebuildSection = (sections: SectionProps[][]) => {
-    let counter = 1;
-    sections.forEach((col) => {
-        col.forEach((sec) => {
-            sec.id = counter;
-            counter++;
-        }) 
-    });
-    return sections;
-}
-
-export interface IProps {
-    header: string,
-    footer: string,
-    sections: SectionProps[][],
+interface ISub {
+    id: number
     jsx: string
 }
 
-export const Container: React.FC<IProps> = (props) => {
-    const [elements, setElements] = useState<SectionProps[][]>(rebuildSection(props.sections));
+interface ISection {
+    id: number
+    jsx: string
+    subs: ISub[]
+}
+
+interface IProps {
+    header: string,
+    footer: string,
+    sections: ISection[][],
+    jsx: string,
+}
+
+const rebuild = (template: any): IProps => {
+    let counter: number = 0;
+    template.sections.forEach((col: any) => {
+        col.forEach((sec: any) => {
+            counter++;
+            sec.id = counter;
+            sec.subs = sec.subs.map((el: string) => {
+                counter++;
+                return { id: counter, jsx: el };
+            });
+        })
+    });
+    return template;
+}
+
+export const Container: React.FC<{ template: any }> = ({ template }) => {
+    const cvTemplate: IProps = rebuild(template);
+    console.log(JSON.stringify(cvTemplate));
+    const [elements, setElements] = useState<ISection[][]>(cvTemplate.sections);
     const moveSection = useCallback(
         (dragCol, hoverCol, dragIndex, hoverIndex) => {
             const dragCard = elements[dragCol][dragIndex];
@@ -39,14 +50,14 @@ export const Container: React.FC<IProps> = (props) => {
     )
 
     const header = () => {
-        return (<JsxParser jsx={props.header}/>)
+        return (<JsxParser jsx={cvTemplate.header} />)
     }
 
     const footer = () => {
-        return (<JsxParser jsx={props.footer}/>)
+        return (<JsxParser jsx={cvTemplate.footer} />)
     }
 
-    const section = (col: number, el: SectionProps, index: number) => {
+    const section = (col: number, el: ISection, index: number) => {
         return (
             <Section
                 id={el.id}
@@ -64,8 +75,8 @@ export const Container: React.FC<IProps> = (props) => {
     }
     return (
         <JsxParser
-            bindings={{column, header, footer}}
-            jsx={props.jsx}
+            bindings={{ column, header, footer }}
+            jsx={template.jsx}
         />
     )
 }

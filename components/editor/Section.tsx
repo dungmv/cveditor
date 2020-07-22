@@ -13,17 +13,22 @@ interface DragItem {
     type: string
 }
 
+interface ISub {
+    id: number,
+    jsx: string,
+}
+
 export interface IProps {
     id: number,
     col: number,
     index: number,
-    subs?: string[],
+    subs?: ISub[],
     jsx: string,
     moveSection: (dragCol: number, hoverCol: number, dragIndex: number, hoverIndex: number) => void
 }
 
 export const Section: React.FC<IProps> = ({col, index, id, jsx, subs, moveSection}) => {
-    const [elements, setElements] = useState(subs.map((el, i) => ({id: i, jsx: el})));
+    const [elements, setElements] = useState<ISub[]>(subs);
     const moveItem = useCallback(
         (dragIndex, hoverIndex) => {
             const dragCard = elements[dragIndex];
@@ -34,7 +39,7 @@ export const Section: React.FC<IProps> = ({col, index, id, jsx, subs, moveSectio
         [elements],
     )
 
-    const renderSubSection = (el, index: number) => {
+    const renderSubSection = (el: ISub, index: number) => {
         return (
             <SubSection
                 id={el.id}
