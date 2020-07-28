@@ -51,12 +51,6 @@ export const Container: React.FC<{ template: IProps }> = ({ template }) => {
     }
 
     const section = (col: number, el: ISection, index: number) => {
-        if(el.subs.length > 0 && typeof(el.subs[0].jsx) !== 'string') {
-            console.log(el.subs[0]);
-        }
-        if (typeof(el.jsx) !== 'string') {
-            console.log(el.jsx);
-        }
         return (
             <Section
                 id={el.id}
