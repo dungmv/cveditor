@@ -25,33 +25,25 @@ export interface IProps {
     subs?: ISub[],
     jsx: string,
     moveSection: (dragCol: number, hoverCol: number, dragIndex: number, hoverIndex: number) => void
+    moveSubSection: (dragCol: number, hoverCol: number, dragSec: number, hoverSec: number, dragIndex: number, hoverIndex: number) => void
 }
 
-export const Section: React.FC<IProps> = ({col, index, id, jsx, subs, moveSection}) => {
-    const [elements, setElements] = useState<ISub[]>(subs);
-    const moveItem = useCallback(
-        (dragIndex, hoverIndex) => {
-            const dragCard = elements[dragIndex];
-            elements[dragIndex] = elements[hoverIndex];
-            elements[hoverIndex] = dragCard;
-            setElements([...elements]);
-        },
-        [elements],
-    )
-
-    const renderSubSection = (el: ISub, index: number) => {
+export const Section: React.FC<IProps> = ({ col, index, id, jsx, subs, moveSection, moveSubSection }) => {
+    const renderSubSection = (el: ISub, idx: number) => {
         return (
             <SubSection
                 id={el.id}
                 key={el.id}
                 jsx={el.jsx}
-                index={index}
-                moveItem={moveItem}
+                index={idx}
+                col={col}
+                sec={index}
+                moveItem={moveSubSection}
             />
         )
     }
     const subSections = () => {
-        return elements.map(renderSubSection);
+        return subs.map(renderSubSection);
     }
 
     const [isMouseHover, setMouseHover] = React.useState<boolean>(false);
@@ -127,9 +119,9 @@ export const Section: React.FC<IProps> = ({col, index, id, jsx, subs, moveSectio
     drop(ref);
     return (
         <div ref={ref} className="section editable section-dnd" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {isMouseHover && !isDragging ? <ToolBox drag={drag}/> : null}
+            {isMouseHover && !isDragging ? <ToolBox drag={drag} /> : null}
             <div ref={preview}>
-                <JsxParser bindings={{subSections}} jsx={jsx}/>
+                <JsxParser bindings={{ subSections }} jsx={jsx} />
             </div>
         </div>
     )

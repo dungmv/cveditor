@@ -7,6 +7,8 @@ import { ItemTypes } from '../ItemTypes'
 
 interface DragItem {
     index: number
+    sec: number
+    col: number
     id: string
     type: string
 }
@@ -14,11 +16,20 @@ interface DragItem {
 export interface IProps {
     id: number
     index: number
+    col: number
+    sec: number
     jsx: string
-    moveItem: (dragIndex: number, hoverIndex: number) => void
+    moveItem: (
+        dragCol: number,
+        hoverCol: number,
+        dragSec: number,
+        hoverSec: number,
+        dragIndex: number,
+        hoverIndex: number
+    ) => void
 }
 
-export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
+export const SubSection: React.FC<IProps> = ({id, index, col, sec, jsx, moveItem}) => {
     const [isMouseHover, setMouseHover] = React.useState<boolean>(false);
     const onMouseEnter = () => {
         setMouseHover(true);
@@ -35,6 +46,10 @@ export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
             if (!ref.current) {
                 return
             }
+            const dragCol = item.col
+            const hoverCol = col
+            const dragSec = item.sec
+            const hoverSec = sec
             const dragIndex = item.index
             const hoverIndex = index
 
@@ -70,7 +85,7 @@ export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
             }
 
             // Time to actually perform the action
-            moveItem(dragIndex, hoverIndex)
+            moveItem(dragCol, hoverCol, dragSec, hoverSec, dragIndex, hoverIndex)
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
@@ -81,7 +96,7 @@ export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
     })
 
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { type: ItemTypes.SUBSECTION, id, index },
+        item: { type: ItemTypes.SUBSECTION, id, index, col, sec },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
         }),

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import JsxParser from 'react-jsx-parser'
-import { Section } from './Section';
+import { Section } from './Section'
 
 interface ISub {
     id: number
@@ -20,44 +20,43 @@ interface IProps {
     jsx: string,
 }
 
-const rebuild = (template: any): IProps => {
-    let counter: number = 0;
-    template.sections.forEach((col: any) => {
-        col.forEach((sec: any) => {
-            counter++;
-            sec.id = counter;
-            sec.subs = sec.subs.map((el: string) => {
-                counter++;
-                return { id: counter, jsx: el };
-            });
-        })
-    });
-    return template;
-}
-
-export const Container: React.FC<{ template: any }> = ({ template }) => {
-    const cvTemplate: IProps = rebuild(template);
-    console.log(JSON.stringify(cvTemplate));
-    const [elements, setElements] = useState<ISection[][]>(cvTemplate.sections);
+export const Container: React.FC<{ template: IProps }> = ({ template }) => {
+    const [sections, setSections] = useState<ISection[][]>(template.sections);
     const moveSection = useCallback(
         (dragCol, hoverCol, dragIndex, hoverIndex) => {
-            const dragCard = elements[dragCol][dragIndex];
-            elements[dragCol][dragIndex] = elements[hoverCol][hoverIndex];
-            elements[hoverCol][hoverIndex] = dragCard;
-            setElements([...elements]);
-        },
-        [elements],
+            console.log(dragCol, hoverCol, dragIndex, hoverIndex);
+            const dragCard = sections[dragCol][dragIndex];
+            sections[dragCol][dragIndex] = sections[hoverCol][hoverIndex];
+            sections[hoverCol][hoverIndex] = dragCard;
+            setSections([...sections]);
+        }, [sections]
+    )
+
+    const moveSubSection = useCallback(
+        (dragCol, hoverCol, dragSec, hoverSec, dragIndex, hoverIndex) => {
+            console.log(dragCol, hoverCol, dragSec, hoverSec, dragIndex, hoverIndex);
+            const dragSub = sections[dragCol][dragSec].subs[dragIndex];
+            sections[dragCol][dragSec].subs[dragIndex] = sections[hoverCol][hoverSec].subs[hoverIndex];
+            sections[hoverCol][hoverSec].subs[hoverIndex] = dragSub;
+            setSections([...sections]);
+        }, [sections]
     )
 
     const header = () => {
-        return (<JsxParser jsx={cvTemplate.header} />)
+        return (<JsxParser jsx={template.header} />)
     }
 
     const footer = () => {
-        return (<JsxParser jsx={cvTemplate.footer} />)
+        return (<JsxParser jsx={template.footer} />)
     }
 
     const section = (col: number, el: ISection, index: number) => {
+        if(el.subs.length > 0 && typeof(el.subs[0].jsx) !== 'string') {
+            console.log(el.subs[0]);
+        }
+        if (typeof(el.jsx) !== 'string') {
+            console.log(el.jsx);
+        }
         return (
             <Section
                 id={el.id}
@@ -67,11 +66,12 @@ export const Container: React.FC<{ template: any }> = ({ template }) => {
                 index={index}
                 subs={el.subs}
                 moveSection={moveSection}
+                moveSubSection={moveSubSection}
             />
         )
     }
     const column = (col: number) => {
-        return elements[col].map((el, i) => section(col, el, i));
+        return sections[col].map((el, i) => section(col, el, i));
     }
     return (
         <JsxParser

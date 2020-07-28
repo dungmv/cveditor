@@ -5,10 +5,23 @@ import { DndProvider } from 'react-dnd'
 import { Container } from '../components/editor/Container';
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
-const fetcher = (url: string) => fetch(url).then(r => r.json());
+const templateFetcher = (url: string) => fetch(url).then(r => r.json()).then(template => {
+    let counter: number = 0;
+    template.sections.forEach((col: any) => {
+        col.forEach((sec: any) => {
+            counter++;
+            sec.id = counter;
+            sec.subs = sec.subs.map((el: string) => {
+                counter++;
+                return { id: counter, jsx: el };
+            });
+        })
+    });
+    return template;
+});
 
 export default ({ }) => {
-    const { data, error } = useSWR('/api/templates', fetcher);
+    const { data, error } = useSWR('/api/templates', templateFetcher);
 
     return (
         <div className="container px-3 px-lg-5">
