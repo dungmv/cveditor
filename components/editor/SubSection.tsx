@@ -1,14 +1,13 @@
 import React, {useRef} from 'react'
 import JsxParser from 'react-jsx-parser'
 import ToolBox from './ToolBox'
-import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
+import { useDrag, useDrop, DropTargetMonitor, DragObjectWithType } from 'react-dnd'
 import { XYCoord } from 'dnd-core'
 import { ItemTypes } from './ItemTypes'
 
-interface DragItem {
-    id: string
+interface DragItem extends DragObjectWithType {
+    id: number
     index: number
-    type: string
 }
 
 export interface IProps {
@@ -72,7 +71,6 @@ export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
 
             // Time to actually perform the action
             moveItem(dragIndex, hoverIndex)
-
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
             // but it's good here for the sake of performance

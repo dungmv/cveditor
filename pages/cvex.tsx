@@ -2,7 +2,7 @@ import React from 'react';
 import useSWR from 'swr'
 import Head from 'next/head'
 import { DndProvider } from 'react-dnd'
-import { Container } from '../components/editor/Container';
+import CVEditor from '../components/editor'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const templateFetcher = (url: string) => fetch(url).then(r => r.json()).then(template => {
@@ -30,7 +30,7 @@ export default ({ }) => {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <DndProvider backend={HTML5Backend}>
-                {data ? <Container template={data} /> : <h1>loading</h1>}
+                {data ? <CVEditor template={data} /> : <h1>loading</h1>}
             </DndProvider>
         </div>
     )
