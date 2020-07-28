@@ -1,9 +1,9 @@
 import React, {useRef} from 'react'
 import JsxParser from 'react-jsx-parser'
-import ToolBox from '../ToolBox'
+import ToolBox from './ToolBox'
 import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
 import { XYCoord } from 'dnd-core'
-import { ItemTypes } from '../ItemTypes'
+import { ItemTypes } from './ItemTypes'
 
 interface DragItem {
     id: string
