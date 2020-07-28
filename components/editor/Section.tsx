@@ -25,23 +25,31 @@ export interface IProps {
     subs?: ISub[],
     jsx: string,
     moveSection: (dragCol: number, hoverCol: number, dragIndex: number, hoverIndex: number) => void
-    moveSubSection: (dragCol: number, hoverCol: number, dragSec: number, hoverSec: number, dragIndex: number, hoverIndex: number) => void
 }
 
-export const Section: React.FC<IProps> = ({ col, index, id, jsx, subs, moveSection, moveSubSection }) => {
+export const Section: React.FC<IProps> = ({ col, index, id, jsx, subs, moveSection }) => {
+    const [items, setItems] = useState<ISub[]>(subs);
+    const moveSubSection = useCallback(
+        (dragIndex, hoverIndex) => {
+            const dragSub = items[dragIndex];
+            items[dragIndex] = items[hoverIndex];
+            items[hoverIndex] = dragSub;
+            setItems([...items]);
+        }, [items]
+    )
+
     const renderSubSection = (el: ISub, idx: number) => {
         return (
             <SubSection
                 id={el.id}
-                key={el.id}
+                key={idx}
                 jsx={el.jsx}
                 index={idx}
-                col={col}
-                sec={index}
                 moveItem={moveSubSection}
             />
         )
     }
+
     const subSections = () => {
         return subs.map(renderSubSection);
     }

@@ -24,20 +24,9 @@ export const Container: React.FC<{ template: IProps }> = ({ template }) => {
     const [sections, setSections] = useState<ISection[][]>(template.sections);
     const moveSection = useCallback(
         (dragCol, hoverCol, dragIndex, hoverIndex) => {
-            console.log(dragCol, hoverCol, dragIndex, hoverIndex);
             const dragCard = sections[dragCol][dragIndex];
             sections[dragCol][dragIndex] = sections[hoverCol][hoverIndex];
             sections[hoverCol][hoverIndex] = dragCard;
-            setSections([...sections]);
-        }, [sections]
-    )
-
-    const moveSubSection = useCallback(
-        (dragCol, hoverCol, dragSec, hoverSec, dragIndex, hoverIndex) => {
-            console.log(dragCol, hoverCol, dragSec, hoverSec, dragIndex, hoverIndex);
-            const dragSub = sections[dragCol][dragSec].subs[dragIndex];
-            sections[dragCol][dragSec].subs[dragIndex] = sections[hoverCol][hoverSec].subs[hoverIndex];
-            sections[hoverCol][hoverSec].subs[hoverIndex] = dragSub;
             setSections([...sections]);
         }, [sections]
     )
@@ -55,12 +44,11 @@ export const Container: React.FC<{ template: IProps }> = ({ template }) => {
             <Section
                 id={el.id}
                 col={col}
-                key={el.id}
+                key={index}
                 jsx={el.jsx}
                 index={index}
                 subs={el.subs}
                 moveSection={moveSection}
-                moveSubSection={moveSubSection}
             />
         )
     }
