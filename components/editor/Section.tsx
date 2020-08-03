@@ -51,7 +51,7 @@ export const Section: React.FC<IProps> = ({ col, index, id, jsx, subs, moveSecti
     }
 
     const subSections = () => {
-        return subs.map(renderSubSection);
+        return items.map(renderSubSection);
     }
 
     const [isMouseHover, setMouseHover] = React.useState<boolean>(false);
