@@ -86,8 +86,9 @@ export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
         }),
     })
     drop(ref);
+    const opacity = isDragging ? 0 : 1
     return (
-        <div ref={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="sub-section">
+        <div ref={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="sub-section" style={{opacity}}>
             {isMouseHover && !isDragging ? <ToolBox drag={drag}/> : null}
             <div ref={preview}>
                 <JsxParser jsx={jsx}/>

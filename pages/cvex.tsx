@@ -20,7 +20,7 @@ const templateFetcher = (url: string) => fetch(url).then(r => r.json()).then(tem
     return template;
 });
 
-export default ({ }) => {
+const cve = ({ }) => {
     const { data, error } = useSWR('/api/templates', templateFetcher);
 
     return (
@@ -35,3 +35,5 @@ export default ({ }) => {
         </div>
     )
 }
+
+export default cve;

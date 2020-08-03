@@ -4,6 +4,8 @@ import '../styles/devresume.scss'
 import '../styles/cve.scss'
 
 // This default export is required in a new `pages/_app.js` file.
-export default ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }) => {
     return <Component {...pageProps} />
 }
+
+export default App;

@@ -1,4 +1,4 @@
-export default ({drag}) => {
+const ToolBox = ({drag}) => {
     return (
         <div className="section-actions section-0">
             <div className="section-action-wrapper" draggable="true" ref={drag}>
@@ -19,3 +19,5 @@ export default ({drag}) => {
         </div>
     )
 }
+
+export default ToolBox;
