@@ -6,7 +6,7 @@ import CVEditor from '../components/editor'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const templateFetcher = (url: string) => fetch(url).then(r => r.json()).then(template => {
-    let counter: number = 0;
+    let counter: number = 10;
     template.sections.forEach((col: any) => {
         col.forEach((sec: any) => {
             counter++;
@@ -20,7 +20,7 @@ const templateFetcher = (url: string) => fetch(url).then(r => r.json()).then(tem
     return template;
 });
 
-const cve = ({ }) => {
+const editor = ({ }) => {
     const { data, error } = useSWR('/api/templates', templateFetcher);
 
     return (
@@ -36,4 +36,4 @@ const cve = ({ }) => {
     )
 }
 
-export default cve;
+export default editor;

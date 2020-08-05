@@ -13,11 +13,13 @@ interface DragItem extends DragObjectWithType {
 export interface IProps {
     id: number
     index: number
+    parent: number
     jsx: string
     moveItem: (dragIndex: number, hoverIndex: number) => void
 }
 
-export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
+export const SubSection: React.FC<IProps> = ({id, index, jsx, parent, moveItem}) => {
+    const accept = ItemTypes.SUBSECTION + parent;
     const [isMouseHover, setMouseHover] = React.useState<boolean>(false);
     const onMouseEnter = () => {
         setMouseHover(true);
@@ -29,7 +31,7 @@ export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
 
     const ref = useRef<HTMLDivElement>(null);
     const [, drop] = useDrop({
-        accept: ItemTypes.SUBSECTION,
+        accept,
         hover(item: DragItem, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return
@@ -80,10 +82,10 @@ export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
     })
 
     const [{ isDragging }, drag, preview] = useDrag({
-        item: { type: ItemTypes.SUBSECTION, id, index },
+        item: { type: accept, id, index },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
-        }),
+        })
     })
     drop(ref);
     const opacity = isDragging ? 0 : 1
@@ -91,7 +93,7 @@ export const SubSection: React.FC<IProps> = ({id, index, jsx, moveItem}) => {
         <div ref={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="sub-section" style={{opacity}}>
             {isMouseHover && !isDragging ? <ToolBox drag={drag}/> : null}
             <div ref={preview}>
-                <JsxParser jsx={jsx}/>
+                <JsxParser jsx={jsx} disableKeyGeneration={true} showWarnings={true}/>
             </div>
         </div>
     )

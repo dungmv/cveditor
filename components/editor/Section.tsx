@@ -31,10 +31,10 @@ export const Section: React.FC<IProps> = ({ col, index, id, jsx, subs, moveSecti
     const [items, setItems] = useState<ISub[]>(subs);
     const moveSubSection = useCallback(
         (dragIndex, hoverIndex) => {
-            const dragSub = items[dragIndex];
+            const dragItem = items[dragIndex];
             items[dragIndex] = items[hoverIndex];
-            items[hoverIndex] = dragSub;
-            setItems([...items]);
+            items[hoverIndex] = dragItem;
+            setItems([...items])
         }, [items]
     )
 
@@ -42,9 +42,10 @@ export const Section: React.FC<IProps> = ({ col, index, id, jsx, subs, moveSecti
         return (
             <SubSection
                 id={el.id}
-                key={idx}
+                key={el.id}
                 jsx={el.jsx}
                 index={idx}
+                parent={id}
                 moveItem={moveSubSection}
             />
         )
@@ -114,7 +115,7 @@ export const Section: React.FC<IProps> = ({ col, index, id, jsx, subs, moveSecti
             // but it's good here for the sake of performance
             // to avoid expensive index searches.
             item.index = hoverIndex
-        },
+        }
     })
 
     const [{ isDragging }, drag, preview] = useDrag({
@@ -123,13 +124,13 @@ export const Section: React.FC<IProps> = ({ col, index, id, jsx, subs, moveSecti
             isDragging: monitor.isDragging(),
         }),
     })
-
+    const opacity = isDragging ? 0 : 1
     drop(ref);
     return (
-        <div ref={ref} className="section editable section-dnd" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <div ref={ref} className="section editable section-dnd" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} style={{opacity}}>
             {isMouseHover && !isDragging ? <ToolBox drag={drag} /> : null}
             <div ref={preview}>
-                <JsxParser bindings={{ subSections }} jsx={jsx} />
+                <JsxParser bindings={{ subSections }} jsx={jsx} disableKeyGeneration={true} showWarnings={true}/>
             </div>
         </div>
     )

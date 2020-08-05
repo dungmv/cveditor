@@ -20,7 +20,7 @@ interface IProps {
     jsx: string,
 }
 
-export const Container: React.FC<{ template: IProps }> = ({ template }) => {
+export const Container: React.FC<{ template: IProps }> = ({ template }) => {{
     const [sections, setSections] = useState<ISection[][]>(template.sections);
     const moveSection = useCallback(
         (dragCol, hoverCol, dragIndex, hoverIndex) => {
@@ -32,11 +32,11 @@ export const Container: React.FC<{ template: IProps }> = ({ template }) => {
     )
 
     const header = () => {
-        return (<JsxParser jsx={template.header} />)
+        return (<JsxParser jsx={template.header}/>)
     }
 
     const footer = () => {
-        return (<JsxParser jsx={template.footer} />)
+        return (<JsxParser jsx={template.footer}/>)
     }
 
     const section = (col: number, el: ISection, index: number) => {
@@ -44,7 +44,7 @@ export const Container: React.FC<{ template: IProps }> = ({ template }) => {
             <Section
                 id={el.id}
                 col={col}
-                key={index}
+                key={el.id}
                 jsx={el.jsx}
                 index={index}
                 subs={el.subs}
@@ -52,13 +52,17 @@ export const Container: React.FC<{ template: IProps }> = ({ template }) => {
             />
         )
     }
+
     const column = (col: number) => {
-        return sections[col].map((el, i) => section(col, el, i));
+        return sections[col].map((el, index) => section(col, el, index));
     }
+
     return (
         <JsxParser
             bindings={{ column, header, footer }}
+            disableKeyGeneration={true}
             jsx={template.jsx}
+            showWarnings={true}
         />
     )
-}
+}}
