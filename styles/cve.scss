@@ -15,6 +15,22 @@ span[contenteditable=true]:hover {
     outline: 1px dashed grey;
 }
 
+.section {
+    position: relative;
+}
+
+.page .section {
+    padding-bottom: 5px;
+}
+
+.sub-section {
+    position: relative;
+}
+
+.sub-section-active {
+    border: 2px solid #2f99b5;
+}
+
 .section-actions .section-action.draggable {
     cursor: move;
 }

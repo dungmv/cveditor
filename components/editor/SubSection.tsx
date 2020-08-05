@@ -1,37 +1,42 @@
-import React, { useRef } from 'react'
-import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
-import { ItemTypes } from './ItemTypes'
+import React, {useRef} from 'react'
+import JsxParser from 'react-jsx-parser'
+import ToolBox from './ToolBox'
+import { useDrag, useDrop, DropTargetMonitor, DragObjectWithType } from 'react-dnd'
 import { XYCoord } from 'dnd-core'
+import { ItemTypes } from './ItemTypes'
 
-const style = {
-    border: '1px dashed gray',
-    padding: '0.5rem 1rem',
-    marginBottom: '.5rem',
-    backgroundColor: 'white',
-    cursor: 'move',
-}
-
-export interface CardProps {
-    id: any
-    text: string
+interface DragItem extends DragObjectWithType {
+    id: number
     index: number
-    moveCard: (dragIndex: number, hoverIndex: number) => void
 }
 
-interface DragItem {
+export interface IProps {
+    id: number
     index: number
-    id: string
-    type: string
+    parent: number
+    jsx: string
+    moveItem: (dragIndex: number, hoverIndex: number) => void
 }
 
-export const Card: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
-    const ref = useRef<HTMLDivElement>(null)
+export const SubSection: React.FC<IProps> = ({id, index, jsx, parent, moveItem}) => {
+    const accept = ItemTypes.SUBSECTION + parent;
+    const [isMouseHover, setMouseHover] = React.useState<boolean>(false);
+    const onMouseEnter = () => {
+        setMouseHover(true);
+    }
+
+    const onMouseLeave = () => {
+        setMouseHover(false);
+    }
+
+    const ref = useRef<HTMLDivElement>(null);
     const [, drop] = useDrop({
-        accept: ItemTypes.CARD,
+        accept,
         hover(item: DragItem, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return
             }
+
             const dragIndex = item.index
             const hoverIndex = index
 
@@ -44,8 +49,7 @@ export const Card: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
             const hoverBoundingRect = ref.current?.getBoundingClientRect()
 
             // Get vertical middle
-            const hoverMiddleY =
-                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
 
             // Determine mouse position
             const clientOffset = monitor.getClientOffset()
@@ -68,8 +72,7 @@ export const Card: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
             }
 
             // Time to actually perform the action
-            moveCard(dragIndex, hoverIndex)
-
+            moveItem(dragIndex, hoverIndex)
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
             // but it's good here for the sake of performance
@@ -78,18 +81,20 @@ export const Card: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
         },
     })
 
-    const [{ isDragging }, drag] = useDrag({
-        item: { type: ItemTypes.CARD, id, index },
+    const [{ isDragging }, drag, preview] = useDrag({
+        item: { type: accept, id, index },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
-        }),
+        })
     })
-
+    drop(ref);
     const opacity = isDragging ? 0 : 1
-    drag(drop(ref))
     return (
-        <div ref={ref} style={{ ...style, opacity }}>
-            <p contentEditable={true}>{text}</p>
+        <div ref={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="sub-section" style={{opacity}}>
+            {isMouseHover && !isDragging ? <ToolBox drag={drag}/> : null}
+            <div ref={preview}>
+                <JsxParser jsx={jsx} disableKeyGeneration={true} showWarnings={true}/>
+            </div>
         </div>
     )
 }

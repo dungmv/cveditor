@@ -1,7 +1,7 @@
-export default () => {
+const ToolBox = ({drag}) => {
     return (
         <div className="section-actions section-0">
-            <div className="section-action-wrapper" draggable="true">
+            <div className="section-action-wrapper" draggable="true" ref={drag}>
                 <i className="fa fa-arrows-alt section-action draggable"></i>
             </div>
             <div className="section-action-wrapper" title="Di chuyển mục này lên trên">
@@ -19,3 +19,5 @@ export default () => {
         </div>
     )
 }
+
+export default ToolBox;
