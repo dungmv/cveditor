@@ -27,7 +27,7 @@ const editor = ({ }) => {
     return (<>
         <Head>
             <title>CV Editor Online</title>
-            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
         </Head>
         <div className="bg-white border-bottom shadow-sm fixed-top">
             <div className="container">
@@ -40,6 +40,7 @@ const editor = ({ }) => {
                             <Dropdown.Item href="#">Small</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
+                    <span className="border-right" style={{width: 1, height: '1rem'}}></span>
                     <Dropdown aria-label="text-font">
                         <Dropdown.Toggle variant="outline">Arial</Dropdown.Toggle>
                         <Dropdown.Menu>
