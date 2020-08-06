@@ -33,6 +33,14 @@ const editor = ({ }) => {
             <div className="container">
                 <div className="d-flex flex-column flex-md-row align-items-center p-1">
                     <Dropdown aria-label="text-font">
+                        <Dropdown.Toggle variant="outline">Large</Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="#">Large</Dropdown.Item>
+                            <Dropdown.Item href="#">Normal</Dropdown.Item>
+                            <Dropdown.Item href="#">Small</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown aria-label="text-font">
                         <Dropdown.Toggle variant="outline">Arial</Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item href="#">Arial</Dropdown.Item>
@@ -60,12 +68,17 @@ const editor = ({ }) => {
                         <Button variant="outline"><i className="fa fa-list-ul"></i></Button>
                     </ButtonGroup>
                     <span className="border-right" style={{width: 1, height: '1rem'}}></span>
+                    <ButtonGroup aria-label="undo-actions">
+                        <Button variant="outline"><i className="fa fa-undo"></i></Button>
+                        <Button variant="outline"><i className="fa fa-redo"></i></Button>
+                    </ButtonGroup>
+                    <span className="border-right" style={{width: 1, height: '1rem'}}></span>
                     <Button variant="outline"><i className="fa fa-download"></i></Button>
                     <Button variant="outline"><i className="fa fa-save"></i></Button>
                 </div>
             </div>
         </div>
-        <div className="container mx-auto theme-bg-light shadow-lg my-5">
+        <div className="container mx-auto theme-bg-light shadow" style={{marginTop: '5rem', marginBottom: '5rem'}}>
             <DndProvider backend={HTML5Backend}>
                 {data ? <CVEditor template={data} /> : <h1>loading</h1>}
             </DndProvider>
