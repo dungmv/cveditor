@@ -13,7 +13,7 @@ const upload = () => {
         const formData = new FormData();
         formData.append('template', file[0]);
 
-        const response = await fetch("/api/template", {
+        const response = await fetch("/api/templates", {
             method: "POST",
             body: formData
         });

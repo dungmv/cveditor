@@ -22,7 +22,7 @@ const templateFetcher = (url: string) => fetch(url).then(r => r.json()).then(tem
 });
 
 const editor = ({ }) => {
-    const { data, error } = useSWR('/api/templates', templateFetcher);
+    const { data, error } = useSWR('/api/templates/1', templateFetcher);
 
     return (<>
         <Head>
