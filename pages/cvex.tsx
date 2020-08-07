@@ -32,8 +32,9 @@ const editor = ({ }) => {
         <div className="bg-white border-bottom shadow-sm fixed-top">
             <div className="container">
                 <div className="d-flex flex-column flex-md-row align-items-center p-1">
+                    <Button variant="outline"><i className="fas fa-line-height"></i></Button>
                     <Dropdown aria-label="text-font">
-                        <Dropdown.Toggle variant="outline">Large</Dropdown.Toggle>
+                        <Dropdown.Toggle variant="outline"><i className="fas fa-text-height"></i></Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item href="#">Large</Dropdown.Item>
                             <Dropdown.Item href="#">Normal</Dropdown.Item>
@@ -42,7 +43,7 @@ const editor = ({ }) => {
                     </Dropdown>
                     <span className="border-right" style={{width: 1, height: '1rem'}}></span>
                     <Dropdown aria-label="text-font">
-                        <Dropdown.Toggle variant="outline">Arial</Dropdown.Toggle>
+                        <Dropdown.Toggle variant="outline"><i className="fas fa-font"></i></Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item href="#">Arial</Dropdown.Item>
                             <Dropdown.Item href="#">Roboto</Dropdown.Item>
@@ -52,9 +53,9 @@ const editor = ({ }) => {
                     </Dropdown>
                     <span className="border-right" style={{width: 1, height: '1rem'}}></span>
                     <ButtonGroup aria-label="text-decoration">
-                        <Button variant="outline"><b className="font-weight-bold">B</b></Button>
-                        <Button variant="outline"><i className="font-italic">I</i></Button>
-                        <Button variant="outline"><u className="font-weight-normal">U</u></Button>
+                        <Button variant="outline"><i className="fas fa-bold"></i></Button>
+                        <Button variant="outline"><i className="fas fa-italic"></i></Button>
+                        <Button variant="outline"><i className="fas fa-underline"></i></Button>
                     </ButtonGroup>
                     <span className="border-right" style={{width: 1, height: '1rem'}}></span>
                     <ButtonGroup aria-label="text-align">
