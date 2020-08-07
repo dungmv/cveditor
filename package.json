@@ -12,6 +12,7 @@
     "acorn": "^7.3.1",
     "acorn-jsx": "^5.2.0",
     "bootstrap": "^4.5.1",
+    "express": "^4.17.1",
     "immutability-helper": "^3.1.1",
     "next": "latest",
     "react": "^16.7.0",

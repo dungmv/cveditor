@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React, { useRef } from "react";
 import { useRouter } from "next/router";
 import { Form, Button, Container } from 'react-bootstrap'
@@ -33,6 +34,10 @@ const SignInPage = () => {
                 margin: auto;
             }
        `}</style>
+        <Head>
+            <title>CV Editor Online</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+        </Head>
         <Container>
             <div className="form-signin">
                 <Form onSubmit={handleSubmit}>
