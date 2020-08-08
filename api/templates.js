@@ -42,7 +42,7 @@ const create = (req, res) => {
     const ws = fs.createWriteStream('assets/template.zip');
     req.pipe(ws).on('close', () => {
         res.json({err: 0, msg: 'success'});
-        archiver
+        zlib.createUnzip().pipe()
     });
 }
 
