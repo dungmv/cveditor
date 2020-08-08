@@ -9,7 +9,7 @@ const upload = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
 
-        const file = fileInput.current.value;
+        const file = fileInput.current.files;
         const formData = new FormData();
         formData.append('template', file[0]);
 
