@@ -1,4 +1,5 @@
 const fs = require('fs');
+var zlib = require('zlib');
 
 const readSection = (folder, subNumber) => {
     const jsx = fs.readFileSync(`./templates/cv-dev/${folder}/sec.html`, 'utf8');
@@ -34,7 +35,15 @@ const get = (req, res) => {
 }
 
 const create = (req, res) => {
-    res.json({e: 0, msg: 'success'});
+    const type = req.get('Content-Type');
+    if (type != 'application/zip') {
+        return res.json({err: 1, msg: type});
+    }
+    const ws = fs.createWriteStream('assets/template.zip');
+    req.pipe(ws).on('close', () => {
+        res.json({err: 0, msg: 'success'});
+        archiver
+    });
 }
 
 module.exports = {

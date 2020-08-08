@@ -9,16 +9,18 @@ const upload = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
 
-        const file = fileInput.current.files;
-        const formData = new FormData();
-        formData.append('template', file[0]);
+        const file = fileInput.current.files[0];
 
         const response = await fetch("/api/templates", {
             method: "POST",
-            body: formData
+            headers: { 'content-type': file.type },
+            body: file
         });
-
-        if (response.ok) {
+        if (!response.ok) {
+            return;
+        }
+        const body = await response.json();
+        if (!body.err) {
             return router.push("/edit");
         }
     };
