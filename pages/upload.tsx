@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React, { useRef } from "react";
 import { useRouter } from "next/router";
 import { Form, Button, Container } from 'react-bootstrap'
@@ -26,6 +27,10 @@ const upload = () => {
     };
 
     return (<>
+        <Head>
+            <title>CV Editor Online</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+        </Head>
         <Container>
             <div className="my-3">
                 <Form onSubmit={handleSubmit}>

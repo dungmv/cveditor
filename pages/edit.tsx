@@ -10,6 +10,7 @@ const edit = () => (<>
         <div className="my-3">
             <div className="text-center mb-4">
                 <h4>CVShine</h4>
+                <a href="/upload">upload</a>
             </div>
         </div>
     </Container>

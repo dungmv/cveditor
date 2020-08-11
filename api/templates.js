@@ -1,5 +1,9 @@
 const fs = require('fs');
-var zlib = require('zlib');
+const zlib = require('zlib');
+const AdmZip = require('adm-zip');
+const { DOMParser } = require('xmldom');
+const parse5 = require('parse5');
+const xmlser = require('xmlserializer');
 
 const readSection = (folder, subNumber) => {
     const jsx = fs.readFileSync(`./templates/cv-dev/${folder}/sec.html`, 'utf8');
@@ -39,10 +43,27 @@ const create = (req, res) => {
     if (type != 'application/zip') {
         return res.json({err: 1, msg: type});
     }
-    const ws = fs.createWriteStream('assets/template.zip');
+    const fileName = 'assets/template.zip';
+    const ws = fs.createWriteStream(fileName);
     req.pipe(ws).on('close', () => {
         res.json({err: 0, msg: 'success'});
-        zlib.createUnzip().pipe()
+        const zip = new AdmZip(fileName);
+        const zipEntries = zip.getEntries();
+        zipEntries.forEach((entry) => {
+            const entryName = entry.entryName.toLowerCase();
+            if (entryName.startsWith('readme')) {
+                console.log(zip.readAsText(entry));
+            }
+            if (entryName.startsWith('index')) {
+                const html = zip.readAsText(entry);
+                const doc = new DOMParser().parseFromString(html);
+                const container = doc.getElementsByClassName('container')[0];
+                fs.writeFile('assets/src/index.html', container.toString(), (err) => {
+                    if (err) console.warn(err);
+                    else console.log('success');
+                });
+            }
+        });
     });
 }
 
