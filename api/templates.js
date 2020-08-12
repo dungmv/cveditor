@@ -1,9 +1,7 @@
 const fs = require('fs');
 const zlib = require('zlib');
 const AdmZip = require('adm-zip');
-const { DOMParser } = require('xmldom');
-const parse5 = require('parse5');
-const xmlser = require('xmlserializer');
+const parser = require('./cv-parser');
 
 const readSection = (folder, subNumber) => {
     const jsx = fs.readFileSync(`./templates/cv-dev/${folder}/sec.html`, 'utf8');
@@ -55,13 +53,7 @@ const create = (req, res) => {
                 console.log(zip.readAsText(entry));
             }
             if (entryName.startsWith('index')) {
-                const html = zip.readAsText(entry);
-                const doc = new DOMParser().parseFromString(html);
-                const container = doc.getElementsByClassName('container')[0];
-                fs.writeFile('assets/src/index.html', container.toString(), (err) => {
-                    if (err) console.warn(err);
-                    else console.log('success');
-                });
+                parser(zip.readAsText(entry));
             }
         });
     });
