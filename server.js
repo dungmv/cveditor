@@ -1,27 +1,39 @@
 // server.js
-const { createServer } = require('http')
-const { parse } = require('url')
+const express = require('express')
 const next = require('next')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const fs = require('fs')
 
 const dev = process.env.NODE_ENV !== 'production'
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8800
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-app.prepare().then(() => {
-  createServer((req, res) => {
-    // Be sure to pass `true` as the second argument to `url.parse`.
-    // This tells it to parse the query portion of the URL.
-    const parsedUrl = parse(req.url, true)
-    const { pathname, query } = parsedUrl
+const templateRouter = require('./api/templates');
+const authRouter = require('./api/auth');
 
-    if (pathname === '/') {
-      app.render(req, res, '/cvex', query)
-    } else {
-      handle(req, res, parsedUrl)
-    }
-  }).listen(port, (err) => {
+app.prepare().then(() => {
+  const server = express();
+
+  // parse application/x-www-form-urlencoded
+  server.use(cookieParser());
+  server.use(bodyParser.json());
+  server.use(bodyParser.urlencoded({extended: true}));
+  server.get('/api/templates/:id', templateRouter.get);
+  server.post('/api/templates', templateRouter.create);
+  server.post('/api/auth', authRouter.login);
+
+  server.get('/', (req, res) => {
+    return app.render(req, res, '/index', req.query)
+  })
+
+  server.all('*', (req, res) => {
+    return handle(req, res)
+  })
+
+  server.listen(port, (err) => {
     if (err) throw err
-    console.log('> Ready on http://localhost:' + port)
+    console.log(`> Ready on http://localhost:${port}`)
   })
 })
