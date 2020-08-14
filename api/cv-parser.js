@@ -1,6 +1,5 @@
 const { DOMParser, XMLSerializer } = require('../libs/xmldom');
 const fs = require('fs');
-const parse5 = require('parse5');
 
 const xml = new DOMParser();
 const serializer = new XMLSerializer();
@@ -14,15 +13,23 @@ const serialize = (node) => {
 }
 
 const saveFile = (fileName = '', node) => {
+    node.setAttribute('serialize', 'true');
     const text = serialize(node);
     fs.writeFile(`assets/src/${fileName}.html`, text, (err) => {
         if (err) console.warn(err);
-        else console.log('success', fileName);
+        else console.log('serialize', fileName);
     });
 }
 
-const removeNote = (node) => {
-    node.parentNode.removeChild(node);
+const removeNote = (parent, node) => {
+    node.setAttribute('deleted', 'true');
+    parent.removeChild(node);
+}
+
+const removeNotes = (parent, nodes) => {
+    while(nodes.length > 0) {
+        removeNote(parent, nodes[0]);
+    }
 }
 
 const parser = (html = '') => {
@@ -40,14 +47,14 @@ const parser = (html = '') => {
             for (let k = 0; k < subSections.length; k++) {
                 const sub = subSections[k];
                 saveFile(`sub-${i}-${j}-${k}`, sub);
-                removeNote(sub);
             }
+            removeNotes(sec, subSections);
             saveFile(`sec-${i}-${j}`, sec);
-            removeNote(sec);
         }
+        removeNotes(container, sections);
     }
-    removeNote(header);
-    removeNote(footer);
+    removeNote(container, header);
+    removeNote(container, footer);
     saveFile('index', container);
     saveFile('header', header);
     saveFile('footer', footer);
