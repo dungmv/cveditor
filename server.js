@@ -21,6 +21,7 @@ app.prepare().then(() => {
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({extended: true}));
   server.get('/api/templates/:id', templateRouter.get);
+  server.get('/api/download/:id', templateRouter.download);
   server.post('/api/templates', templateRouter.create);
   server.post('/api/auth', authRouter.login);
 

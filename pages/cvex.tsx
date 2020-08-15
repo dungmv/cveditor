@@ -24,6 +24,13 @@ const templateFetcher = (url: string) => fetch(url).then(r => r.json()).then(tem
 const editor = ({ }) => {
     const { data, error } = useSWR('/api/templates/1', templateFetcher);
 
+    const download = () => {
+
+    }
+
+    const setRef = (target) => {
+    }
+
     return (<>
         <Head>
             <title>CV Editor Online</title>
@@ -75,14 +82,14 @@ const editor = ({ }) => {
                         <Button variant="outline"><i className="fa fa-redo"></i></Button>
                     </ButtonGroup>
                     <span className="border-right" style={{width: 1, height: '1rem'}}></span>
-                    <Button variant="outline"><i className="fa fa-download"></i></Button>
+                    <Button variant="outline" onClick={download}><i className="fa fa-download"></i></Button>
                     <Button variant="outline"><i className="fa fa-save"></i></Button>
                 </div>
             </div>
         </div>
         <div className="container mx-auto theme-bg-light shadow" style={{marginTop: '5rem', marginBottom: '5rem'}}>
             <DndProvider backend={HTML5Backend}>
-                {data ? <CVEditor template={data} /> : <h1>loading</h1>}
+                {data ? <CVEditor template={data} setRef={setRef}/> : <h1>loading</h1>}
             </DndProvider>
         </div>
     </>)

@@ -20,7 +20,7 @@ interface IProps {
     jsx: string,
 }
 
-export const Container: React.FC<{ template: IProps }> = ({ template }) => {{
+export const Container: React.FC<{ template: IProps, setRef: (ref:any)=>void }> = ({ template, setRef }) => {{
     const [sections, setSections] = useState<ISection[][]>(template.sections);
     const moveSection = useCallback(
         (dragCol, hoverCol, dragIndex, hoverIndex) => {
@@ -59,6 +59,7 @@ export const Container: React.FC<{ template: IProps }> = ({ template }) => {{
 
     return (
         <JsxParser
+            ref={setRef}
             bindings={{ column, header, footer }}
             disableKeyGeneration={true}
             jsx={template.jsx}
