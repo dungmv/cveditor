@@ -49,16 +49,15 @@ const parser = (src = '') => {
                 const sub = subSections[k];
                 saveFile(`sub-${i}-${j}-${k}`, sub);
             }
-            removeNotes(subSections, doc.createElement('CSubSection'));
+            removeNotes(subSections, doc.createTextNode('{subSections()}'));
             saveFile(`sec-${i}-${j}`, sec);
         }
-        const placeholder = doc.createElement('CSection');
-        placeholder.setAttribute('col', i);
+        const placeholder = doc.createTextNode(`{column(${i})}`);
         removeNotes(sections, placeholder);
     }
 
-    header.parentNode.insertBefore(doc.createElement('CHeader'), header);
-    footer.parentNode.insertBefore(doc.createElement('CFooter'), footer);
+    header.parentNode.insertBefore(doc.createTextNode('{header()}'), header);
+    footer.parentNode.insertBefore(doc.createTextNode('{footer()}'), footer);
     removeNote(header);
     removeNote(footer);
     saveFile('index', container);
