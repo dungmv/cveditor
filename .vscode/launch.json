@@ -19,11 +19,20 @@
             ]
         },
         {
-            "name": "Launch Chrome",
+            "name": "chrome",
             "request": "launch",
             "type": "pwa-chrome",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "server",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/server.js"
         }
     ]
 }
