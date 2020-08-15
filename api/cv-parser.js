@@ -60,7 +60,8 @@ const parser = (src = '') => {
     footer.parentNode.insertBefore(doc.createTextNode('{footer()}'), footer);
     removeNote(header);
     removeNote(footer);
-    saveFile('index', container);
+    const frame = container.childNodes.length == 1 ? container.firstChild : container;
+    saveFile('index', frame);
     saveFile('header', header);
     saveFile('footer', footer);
 }
