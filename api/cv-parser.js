@@ -23,7 +23,8 @@ const removeNote = (node) => {
     parent.removeChild(node);
 }
 
-const removeNotes = (parent, nodes, placeholder) => {
+const removeNotes = (nodes, placeholder) => {
+    const parent = nodes[0].parentNode;
     parent.insertBefore(placeholder, nodes[0]);
     for(let i = nodes.length - 1; i >= 0; --i) {
         const node = nodes[i];
@@ -32,7 +33,6 @@ const removeNotes = (parent, nodes, placeholder) => {
 }
 
 const parser = (src = '') => {
-    //.replace(/\r?\n|\r/gm, '')
     const text = src.replace(/<!--[\s\S]*?-->/g, '').replace(/^\s{2,}|\t/g, '').replace(/\r?\n|\r/gm, '');
     const doc = xml.parseFromString(text, 'html');
     const container = doc.getElementsByClassName('container')[0];
@@ -49,16 +49,16 @@ const parser = (src = '') => {
                 const sub = subSections[k];
                 saveFile(`sub-${i}-${j}-${k}`, sub);
             }
-            removeNotes(sec, subSections, doc.createElement('CSubSection'));
+            removeNotes(subSections, doc.createElement('CSubSection'));
             saveFile(`sec-${i}-${j}`, sec);
         }
         const placeholder = doc.createElement('CSection');
         placeholder.setAttribute('col', i);
-        removeNotes(container, sections, placeholder);
+        removeNotes(sections, placeholder);
     }
 
-    container.insertBefore(doc.createElement('CHeader'), header);
-    container.insertBefore(doc.createElement('CFooter'), footer);
+    header.parentNode.insertBefore(doc.createElement('CHeader'), header);
+    footer.parentNode.insertBefore(doc.createElement('CFooter'), footer);
     removeNote(header);
     removeNote(footer);
     saveFile('index', container);
