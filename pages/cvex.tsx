@@ -25,10 +25,7 @@ const editor = ({ }) => {
     const { data, error } = useSWR('/api/templates/1', templateFetcher);
 
     const download = () => {
-
-    }
-
-    const setRef = (target) => {
+        window.open('/api/downloads/1');
     }
 
     return (<>
@@ -89,7 +86,7 @@ const editor = ({ }) => {
         </div>
         <div className="container mx-auto theme-bg-light shadow" style={{marginTop: '5rem', marginBottom: '5rem'}}>
             <DndProvider backend={HTML5Backend}>
-                {data ? <CVEditor template={data} setRef={setRef}/> : <h1>loading</h1>}
+                {data ? <CVEditor template={data}/> : <h1>loading</h1>}
             </DndProvider>
         </div>
     </>)
