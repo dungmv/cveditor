@@ -3,7 +3,6 @@ const zlib = require('zlib');
 const AdmZip = require('adm-zip');
 const parser = require('./cv-parser');
 const puppeteer = require('puppeteer');
-const stream = require('stream');
 
 const readSection = (section, childCount) => {
     const jsx = fs.readFileSync(`./assets/src/sec-${section}.html`, 'utf8');
@@ -68,13 +67,9 @@ const download = async (req, res) => {
     const fileContents = await page.pdf({ path: 'template.pdf', format: 'A4' });
     await browser.close();
 
-    var readStream = new stream.PassThrough();
-    readStream.end(fileContents);
-  
     res.set('Content-disposition', 'attachment; filename=template.pdf');
     res.set('Content-Type', 'application/pdf');
-  
-    readStream.pipe(res);
+    res.send(fileContents);
 }
 
 module.exports = {
