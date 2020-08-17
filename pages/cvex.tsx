@@ -1,6 +1,7 @@
 import React from 'react';
 import useSWR from 'swr'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { DndProvider } from 'react-dnd'
 import CVEditor from '../components/editor'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -21,7 +22,8 @@ const templateFetcher = (url: string) => fetch(url).then(r => r.json()).then(tem
     return template;
 });
 
-const editor = ({ }) => {
+const editor = ({}) => {
+    const router = useRouter();
     const { data, error } = useSWR('/api/templates/1', templateFetcher);
 
     const download = () => {
@@ -84,6 +86,7 @@ const editor = ({ }) => {
                 </div>
             </div>
         </div>
+        <pre>{router.query.id}</pre>
         <div className="container mx-auto theme-bg-light shadow" style={{marginTop: '5rem', marginBottom: '5rem'}}>
             <DndProvider backend={HTML5Backend}>
                 {data ? <CVEditor template={data}/> : <h1>loading</h1>}
