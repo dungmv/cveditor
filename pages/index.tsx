@@ -18,7 +18,7 @@ const IndexPage = () => {
                 <ul>
                     <li><Link href="/login"><a>login</a></Link></li>
                     <li><Link href="/upload"><a>upload</a></Link></li>
-                    <li><Link href="/api/downloads/1"><a>download</a></Link></li>
+                    <li><Link href="/api/download"><a>download</a></Link></li>
                     <li><Link href="/cvex/1"><a>demo</a></Link></li>
                     <li><Link href="/edit"><a>edit</a></Link></li>
                 </ul>

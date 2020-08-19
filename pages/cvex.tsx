@@ -27,7 +27,7 @@ const editor = ({}) => {
     const { data, error } = useSWR('/api/templates/1', templateFetcher);
 
     const download = () => {
-        window.open('/api/downloads/1');
+        window.open('/api/download');
     }
 
     return (<>
