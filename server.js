@@ -3,7 +3,6 @@ const express = require('express')
 const next = require('next')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const fs = require('fs')
 
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 8800
@@ -21,12 +20,15 @@ app.prepare().then(() => {
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({extended: true}));
   server.get('/api/templates/:id', templateRouter.get);
-  server.get('/api/download/:id', templateRouter.download);
   server.post('/api/templates', templateRouter.create);
   server.post('/api/auth', authRouter.login);
 
   server.get('/', (req, res) => {
     return app.render(req, res, '/index', req.query)
+  })
+
+  server.get('/cvex/:id', (req, res) => {
+    return app.render(req, res, '/cvex', req.query)
   })
 
   server.all('*', (req, res) => {

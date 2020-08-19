@@ -1,9 +1,6 @@
 const fs = require('fs');
-const zlib = require('zlib');
 const AdmZip = require('adm-zip');
 const parser = require('./cv-parser');
-const puppeteer = require('puppeteer');
-const stream = require('stream');
 
 const readSection = (section, childCount) => {
     const jsx = fs.readFileSync(`./assets/src/sec-${section}.html`, 'utf8');
@@ -60,25 +57,7 @@ const create = (req, res) => {
     });
 }
 
-const download = async (req, res) => {
-    const browser = await puppeteer.launch({headless: true});
-    const page = await browser.newPage();
-    const html = fs.readFileSync('./templates/example/index.html');
-    await page.setContent(html.toString());
-    const fileContents = await page.pdf({ path: 'template.pdf', format: 'A4' });
-    await browser.close();
-
-    var readStream = new stream.PassThrough();
-    readStream.end(fileContents);
-  
-    res.set('Content-disposition', 'attachment; filename=template.pdf');
-    res.set('Content-Type', 'application/pdf');
-  
-    readStream.pipe(res);
-}
-
 module.exports = {
     get,
-    create,
-    download
+    create
 }
