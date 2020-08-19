@@ -42,14 +42,12 @@ export default async (req, res) => {
         </DndProvider>
     );
 
-    res.send(html);
-
-    // const browser = await puppeteer.launch({ headless: true });
-    // const page = await browser.newPage();
-    // await page.setContent(html);
-    // const fileContents = await page.pdf({ path: 'template.pdf', format: 'A4' });
-    // await browser.close();
-    // res.set('Content-disposition', 'attachment; filename=template.pdf');
-    // res.set('Content-Type', 'application/pdf');
-    // res.send(fileContents);
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.setContent(html);
+    const fileContents = await page.pdf({ format: 'A4' });
+    await browser.close();
+    res.set('Content-disposition', 'attachment; filename=template.pdf');
+    res.set('Content-Type', 'application/pdf');
+    res.send(fileContents);
 }
