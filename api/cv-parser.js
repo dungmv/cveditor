@@ -10,14 +10,6 @@ const serialize = (node) => {
         .replace(/contenteditable="true"/g, 'contentEditable={true} suppressContentEditableWarning={true}');
 }
 
-const saveFile = (fileName = '', node) => {
-    const text = serialize(node);
-    fs.writeFile(`assets/src/${fileName}.html`, text, (err) => {
-        if (err) console.warn(err);
-        else console.log('serialize', fileName);
-    });
-}
-
 const removeNote = (node) => {
     parent = node.parentNode;
     parent.removeChild(node);
@@ -33,24 +25,30 @@ const removeNotes = (nodes, placeholder) => {
 }
 
 const parser = (src = '') => {
+    const template = {sections: [[]], header: '', footer: '', jsx: ''};
     const text = src.replace(/<!--[\s\S]*?-->/g, '').replace(/^\s{2,}|\t/g, '').replace(/\r?\n|\r/gm, '');
     const doc = xml.parseFromString(text, 'html');
     const container = doc.getElementsByClassName('container')[0];
     const header  = container.getElementsByClassName('resume-header')[0];
     const footer = container.getElementsByClassName('resume-footer')[0];
     const columns = container.getElementsByClassName('resume-column');
+    const cols = [];
     for (let i = columns.length - 1; i >= 0; --i) {
         const col = columns[i];
         const sections = col.getElementsByClassName('section');
+        const secs = [];
+        cols.push(secs);
         for (let j = sections.length - 1; j >= 0; --j) {
             const sec = sections[j];
             const subSections = sec.getElementsByClassName('sub-section');
+            const subs = [];
+            secs.push(subs);
             for (let k = subSections.length - 1; k >= 0; --k) {
                 const sub = subSections[k];
-                saveFile(`sub-${i}-${j}-${k}`, sub);
+                const text = serialize(sub);
+                subs.push(text);
             }
             removeNotes(subSections, doc.createTextNode('{subSections()}'));
-            saveFile(`sec-${i}-${j}`, sec);
         }
         const placeholder = doc.createTextNode(`{column(${i})}`);
         removeNotes(sections, placeholder);
@@ -61,9 +59,11 @@ const parser = (src = '') => {
     removeNote(header);
     removeNote(footer);
     const frame = container.childNodes.length == 1 ? container.firstChild : container;
-    saveFile('index', frame);
-    saveFile('header', header);
-    saveFile('footer', footer);
+    template.jsx = serialize(frame);
+    template.header = serialize(header);
+    template.footer = serialize(footer);
+    template.sections = cols;
+    return template;
 }
 
 module.exports = parser;
