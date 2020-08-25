@@ -4,21 +4,33 @@ const sequelize = new Sequelize('cvshine', 'root', 'root', {
     dialect: 'mysql'
 });
 
-class Template extends Model { }
+class Resume extends Model { }
 
-Template.init({
+Resume.init({
     id: {
         type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true,
     },
+    userId: {
+        type: DataTypes.BIGINT,
+        field: 'user_id'
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    data: {
+    layout: {
         type: DataTypes.BLOB,
         allowNull: false
+    },
+    templateId: {
+        type: DataTypes.BIGINT,
+        field: 'template_id'
+    },
+    themeId: {
+        type: DataTypes.BIGINT,
+        field: 'theme_id'
     },
     createdAt: {
         type: DataTypes.NOW,
@@ -31,7 +43,7 @@ Template.init({
 }, {
     // Other model options go here
     sequelize, // We need to pass the connection instance
-    modelName: 'Template' // We need to choose the model name
+    modelName: 'Resume' // We need to choose the model name
 });
 
-module.exports = Template;
+module.exports = Resume;

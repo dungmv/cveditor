@@ -15,6 +15,12 @@ User.init({
   lastName: {
     type: DataTypes.STRING
     // allowNull defaults to true
+  },
+  email: {
+    type: DataTypes.STRING
+  },
+  password: {
+    type: DataTypes.STRING
   }
 }, {
   // Other model options go here
@@ -22,5 +28,4 @@ User.init({
   modelName: 'User' // We need to choose the model name
 });
 
-// the defined model is the class itself
-console.log(User === sequelize.models.User); // true
+module.exports = User;
