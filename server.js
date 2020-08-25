@@ -11,6 +11,7 @@ const handle = app.getRequestHandler()
 
 const templateRouter = require('./api/templates');
 const authRouter = require('./api/auth');
+const profileRouter = require('./api/profile');
 
 app.prepare().then(() => {
   const server = express();
@@ -22,6 +23,8 @@ app.prepare().then(() => {
   server.get('/api/templates/:id', templateRouter.get);
   server.post('/api/templates', templateRouter.create);
   server.post('/api/auth', authRouter.login);
+  server.get('/api/profiles/:id', profileRouter.get);
+  server.put('/api/profiles/:id', profileRouter.update);
 
   server.get('/', (req, res) => {
     return app.render(req, res, '/index', req.query)

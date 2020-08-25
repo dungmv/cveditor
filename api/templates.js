@@ -6,7 +6,7 @@ const parser = require('./cv-parser');
 const Template = require('../databases/models/Template');
 
 const get = async (req, res) => {
-    templateId = parseInt(req.params.id);
+    const templateId = parseInt(req.params.id);
     const template = await Template.findOne({where: {id: templateId}});
     if (!template) {
         res.statusCode = 404;
