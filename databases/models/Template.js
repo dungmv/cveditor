@@ -16,9 +16,11 @@ Template.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    src: {
+        type: DataTypes.STRING,
+    },
     data: {
         type: DataTypes.BLOB,
-        allowNull: false
     },
     createdAt: {
         type: DataTypes.NOW,

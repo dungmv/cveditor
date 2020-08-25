@@ -1,5 +1,6 @@
 const fs = require('fs');
 const zlib = require('zlib');
+const uuid = require('uuid');
 const AdmZip = require('adm-zip');
 const parser = require('./cv-parser');
 const Template = require('../databases/models/Template');
@@ -24,7 +25,8 @@ const create = (req, res) => {
     if (type != 'application/zip') {
         return res.json({ err: 1, msg: type });
     }
-    const fileName = 'assets/template.zip';
+
+    const fileName = `assets/templates/${uuid.v4()}.zip`;
     const ws = fs.createWriteStream(fileName);
     req.pipe(ws).on('close', () => {
         res.json({ err: 0, msg: 'success' });
@@ -34,9 +36,9 @@ const create = (req, res) => {
             const entryName = entry.entryName.toLowerCase();
             if (entryName.startsWith('index')) {
                 const jsx = parser(zip.readAsText(entry));
-                zlib.deflate(Buffer.fro(JSON.stringify(jsx), 'utf8'), (error, result) => {
+                zlib.deflate(Buffer.from(JSON.stringify(jsx), 'utf8'), (error, result) => {
                     if (error) console.warn('error', error);
-                    else Template.create({name: 'cv dev', data: result});
+                    else Template.create({name: 'cv dev', data: result, src: fileName});
                 });
             }
         });
