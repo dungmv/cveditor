@@ -30,7 +30,7 @@ const parserSection = (doc, sec) => {
     for (let k = subSections.length - 1; k >= 0; --k) {
         const sub = subSections[k];
         const text = serialize(sub);
-        subs.push(text);
+        subs.unshift(text);
     }
     removeNotes(subSections, doc.createTextNode('{subSections()}'));
     const jsx = serialize(sec);
@@ -50,10 +50,10 @@ const parser = (src = '') => {
         const col = columns[i];
         const sections = col.getElementsByClassName('section');
         const secs = [];
-        cols.push(secs);
+        cols.unshift(secs);
         for (let j = sections.length - 1; j >= 0; --j) {
             const sec = parserSection(doc, sections[j]);
-            secs.push(sec);
+            secs.unshift(sec);
         }
         const placeholder = doc.createTextNode(`{column(${i})}`);
         removeNotes(sections, placeholder);
