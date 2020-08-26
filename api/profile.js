@@ -13,7 +13,7 @@ const get = async (req, res) => {
     res.json({ name, templateId, layout, themeId });
 }
 
-const update = (req, res) => {
+const update = async (req, res) => {
     const resumeId = parseInt(req.params.id);
     const layout = req.params.layout;
     await Resume.update({ layout: layout }, { where: { id: resumeId } });

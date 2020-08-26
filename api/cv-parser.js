@@ -24,6 +24,19 @@ const removeNotes = (nodes, placeholder) => {
     }
 }
 
+const parserSection = (doc, sec) => {
+    const subs = [];
+    const subSections = sec.getElementsByClassName('sub-section');
+    for (let k = subSections.length - 1; k >= 0; --k) {
+        const sub = subSections[k];
+        const text = serialize(sub);
+        subs.push(text);
+    }
+    removeNotes(subSections, doc.createTextNode('{subSections()}'));
+    const jsx = serialize(sec);
+    return {subs, jsx}
+}
+
 const parser = (src = '') => {
     const template = {sections: [[]], header: '', footer: '', jsx: ''};
     const text = src.replace(/<!--[\s\S]*?-->/g, '').replace(/^\s{2,}|\t/g, '').replace(/\r?\n|\r/gm, '');
@@ -39,16 +52,8 @@ const parser = (src = '') => {
         const secs = [];
         cols.push(secs);
         for (let j = sections.length - 1; j >= 0; --j) {
-            const sec = sections[j];
-            const subSections = sec.getElementsByClassName('sub-section');
-            const subs = [];
-            secs.push(subs);
-            for (let k = subSections.length - 1; k >= 0; --k) {
-                const sub = subSections[k];
-                const text = serialize(sub);
-                subs.push(text);
-            }
-            removeNotes(subSections, doc.createTextNode('{subSections()}'));
+            const sec = parserSection(doc, sections[j]);
+            secs.push(sec);
         }
         const placeholder = doc.createTextNode(`{column(${i})}`);
         removeNotes(sections, placeholder);
