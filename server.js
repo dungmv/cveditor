@@ -31,7 +31,7 @@ app.prepare().then(() => {
   })
 
   server.get('/cvex/:id', (req, res) => {
-    return app.render(req, res, '/cvex', req.query)
+    return app.render(req, res, '/cvex', {id: req.params.id});
   })
 
   server.all('*', (req, res) => {

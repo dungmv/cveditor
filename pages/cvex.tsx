@@ -21,8 +21,15 @@ const templateFetcher = (url: string) => fetch(url).then(r => r.json()).then(tem
     return template;
 });
 
-const editor = ({}) => {
-    const { data, error } = useSWR('/api/templates/6', templateFetcher);
+export async function getServerSideProps({query}) {
+    return {
+      props: {query}
+    }
+}
+
+const editor = ({query}) => {
+    const id = query.id || 1;
+    const { data, error } = useSWR(`/api/templates/${id}`, templateFetcher);
 
     const download = () => {
         window.open('/api/download');
