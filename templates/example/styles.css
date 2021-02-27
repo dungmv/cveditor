@@ -1,0 +1,146 @@
+*/*********** Theme Generic **********/
+
+.btn {
+	font-weight: bold;
+	padding: .375rem 1rem;
+	height: 2.5rem;
+	font-size: 1rem;
+}
+
+.btn:focus, .btn.focus {
+	box-shadow: none !important;
+}
+
+.btn-primary {
+	color: #fff;
+}
+
+.demo-btn-on-bg {
+	background: rgba(0, 0, 0, 0.2);
+	&:hover {
+		background: rgba(0, 0, 0, 0.3);
+	}
+}
+
+/*********** Resume **********/
+.resume-wrapper {
+	border: 1px solid rgba(0, 0, 0, 0.025);
+}
+
+.resume-section-heading {
+	position: relative;
+	padding-left: 1rem;
+	font-size: 1.125rem;
+	letter-spacing: 0.15rem;
+	color: $theme-color-primary;
+   &:before {
+	   content: "";
+	    display: inline-block;
+	    width: 5px;
+	    height: 100%;
+	    background: $theme-color-primary;
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+   }
+}
+
+.resume-name {
+	font-size: 2.75rem;
+	font-weight: 900;
+	letter-spacing: 0.4rem;
+	color: $theme-color-primary;
+	
+}
+
+.resume-tagline {
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+
+.resume-contact {
+	border-left: 1px solid rgba(0, 0, 0, 0.08);
+	font-size: 0.75rem;
+}
+
+a.resume-link {
+	color: $theme-text-color-secondary;
+	&:hover {
+		color: $theme-color-primary;
+	}
+}
+
+.resume-profile-image {
+	max-width: 120px;
+}
+
+.resume-intro {
+	font-size: 0.875rem;
+}
+.resume-main {
+	.item-title {
+		font-size: 1rem;
+	}
+	
+   .item-meta {
+	   font-size: 0.75rem;
+   }
+   .item-content {
+		font-size: 0.875rem;
+	}
+}
+
+.resume-aside {
+	border-left: 1px solid rgba(0, 0, 0, 0.08);
+	.item {
+		font-size: 0.875rem;
+	}
+	.item-title {
+		font-size: 1rem;
+	}
+	
+}
+
+.resume-education-list, .resume-awards-list {
+    font-size: 0.875rem;
+}
+
+.resume-degree-time-org, .resume-degree-time {
+	font-size: 0.75rem;
+}
+
+.resume-lang-list, .resume-interests-list {
+	font-size: 0.875rem;
+}
+
+.resume-social-list {
+	font-size: 0.75rem;
+}
+
+
+.fa-heart {
+	color: #fb866a;
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+
+    .resume-aside {
+	    border-left: 0;
+    }
+}
+
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+	.resume-contact {
+	    border-left: 0;
+    }
+}
+    
+
+
+
+
+
+
