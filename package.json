@@ -9,11 +9,12 @@
   "author": "Dung Mai <maivandung91@gmail.com>",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "adm-zip": "^0.4.16",
+    "@xmldom/xmldom": "^0.9.10",
+    "adm-zip": "^0.6.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.1",
     "cookie-parser": "^1.4.5",
-    "express": "^4.17.1",
+    "express": "^5.2.1",
     "mysql2": "^2.1.0",
     "next": "^10.0.7",
     "puppeteer": "^25.3.0",
@@ -26,8 +27,7 @@
     "sass": "^1.26.10",
     "sequelize": "^6.3.4",
     "swr": "^0.4.2",
-    "uuid": "^14.0.1",
-    "xmldom": "^0.3.0"
+    "uuid": "^14.0.1"
   },
   "license": "ISC",
   "devDependencies": {
